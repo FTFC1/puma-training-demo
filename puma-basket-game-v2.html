@@ -74,6 +74,31 @@
             margin-bottom: 8px;
         }
 
+        .back-btn {
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 12px 18px;
+            font-size: 15px;
+            font-weight: 600;
+            color: #1a1a1a;
+            background: #fff;
+            border: 1px solid #e0e0e0;
+            border-radius: 24px;
+            text-decoration: none;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            min-height: 44px;
+            transition: transform 0.15s, box-shadow 0.15s;
+        }
+
+        .back-btn:active {
+            transform: scale(0.96);
+            box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+        }
+
         .progress-bar {
             height: 3px;
             background: var(--border);
@@ -518,7 +543,7 @@
     <div class="game-container">
         <!-- Start Screen -->
         <div class="start-screen" id="startScreen">
-            <a href="index.html" class="back-link" style="position: absolute; top: 20px; left: 20px;">← Back</a>
+            <a href="index.html" class="back-btn">← Back to Demo</a>
             <div class="start-title">Build the Basket</div>
             <div class="start-subtitle">
                 A customer arrives. They're buying something.<br>
