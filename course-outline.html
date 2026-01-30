@@ -299,32 +299,16 @@
                 page-break-inside: avoid;
             }
         }
-        .back-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            padding: 12px 18px;
-            font-size: 15px;
-            font-weight: 600;
-            color: #1a1a1a;
-            background: #fff;
-            border: 1px solid #ccc;
-            border-radius: 24px;
-            text-decoration: none;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-            min-height: 44px;
-            margin-bottom: 24px;
-        }
-        .back-btn:active {
-            transform: scale(0.96);
-        }
 
-        /* Demo Section */
+        /* Demo Section - Landing hero */
         .demo-section {
             background: #f5f5f5;
             border-radius: 16px;
-            padding: 20px;
-            margin-bottom: 32px;
+            padding: 24px 20px;
+            margin-bottom: 48px;
+            min-height: calc(100vh - 96px);
+            display: flex;
+            flex-direction: column;
         }
         .demo-header {
             display: flex;
@@ -359,6 +343,7 @@
             color: #888;
             text-transform: uppercase;
             margin-bottom: 12px;
+            margin-top: auto;
         }
         .demo-grid {
             display: grid;
@@ -393,13 +378,18 @@
             font-size: 12px;
             color: #888;
         }
+        .demo-hint {
+            text-align: center;
+            font-size: 12px;
+            color: #999;
+            margin-top: auto;
+            padding-top: 20px;
+        }
     </style>
 </head>
 <body>
 
-<a href="index.html" class="back-btn">← Back</a>
-
-<!-- Demo Section -->
+<!-- Demo Section - Above the fold -->
 <div class="demo-section">
     <div class="demo-header">
         <div class="demo-brand"><span>FORJE</span> RETAIL TRAINING</div>
@@ -428,8 +418,10 @@
             <div class="demo-time">5 min read</div>
         </a>
     </div>
+    <div class="demo-hint">tap any tile to try</div>
 </div>
 
+<!-- Course Content - Below the fold -->
 <div class="header">
     <div class="header-badge">PUMA Lekki</div>
     <h1>Retail Sales Training</h1>
