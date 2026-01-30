@@ -13,21 +13,87 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: #f5f5f5;
-            color: #1a1a1a;
+            background: #1a1a1a;
+            color: #fff;
             min-height: 100vh;
-            padding-bottom: 100px; /* Space for sticky footer */
         }
 
         .container {
-            max-width: 400px;
+            max-width: 500px;
             margin: 0 auto;
-            padding: 20px 16px;
+            padding: 0;
+        }
+
+        /* Video Hero - Full width, immersive */
+        .video-hero {
+            position: relative;
+            width: 100%;
+            background: #000;
+        }
+
+        .video-hero video {
+            width: 100%;
+            display: block;
+        }
+
+        /* Play overlay for poster state */
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+
+        .video-overlay.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .play-btn {
+            width: 80px;
+            height: 80px;
+            background: rgba(255,255,255,0.95);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+
+        .play-btn::after {
+            content: '';
+            width: 0;
+            height: 0;
+            border-left: 28px solid #1a1a1a;
+            border-top: 18px solid transparent;
+            border-bottom: 18px solid transparent;
+            margin-left: 6px;
+        }
+
+        /* Content section */
+        .content {
+            background: #f5f5f5;
+            color: #1a1a1a;
+            padding: 24px 16px;
+            padding-bottom: 140px;
+            border-radius: 24px 24px 0 0;
+            margin-top: -20px;
+            position: relative;
         }
 
         /* Header */
         .header {
-            margin-bottom: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
         }
 
         .brand {
@@ -42,37 +108,18 @@
             color: #8b6914;
         }
 
-        /* Hero */
-        .hero {
-            background: #1a1a1a;
-            border-radius: 16px;
-            padding: 32px 24px;
-            margin-bottom: 24px;
-            text-align: center;
-        }
-
-        .hero-quote {
-            font-size: 24px;
-            font-weight: 600;
+        .demo-badge {
+            background: #8b6914;
             color: #fff;
-            line-height: 1.3;
-            margin-bottom: 8px;
+            font-size: 10px;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
-        .hero-quote-end {
-            font-size: 20px;
-            font-weight: 600;
-            color: #8b6914;
-            margin-bottom: 20px;
-        }
-
-        .hero-credibility {
-            font-size: 13px;
-            color: #888;
-            line-height: 1.5;
-        }
-
-        /* Games section */
+        /* Section label */
         .section-label {
             font-size: 11px;
             font-weight: 700;
@@ -82,6 +129,7 @@
             margin-bottom: 12px;
         }
 
+        /* Games grid */
         .games-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -122,6 +170,11 @@
             color: #888;
         }
 
+        /* Sample lesson tile */
+        .game-tile.lesson {
+            background: #e5dcd3;
+        }
+
         /* Sticky footer */
         .sticky-footer {
             position: fixed;
@@ -135,7 +188,7 @@
         }
 
         .sticky-inner {
-            max-width: 400px;
+            max-width: 500px;
             margin: 0 auto;
         }
 
@@ -173,75 +226,58 @@
         .btn-secondary:active {
             color: #1a1a1a;
         }
-
-        /* Sample lesson tile - different style */
-        .game-tile.lesson {
-            background: #e5dcd3;
-        }
-
-        /* Product image placeholder */
-        .hero-product {
-            margin-bottom: 24px;
-        }
-
-        .product-image-placeholder {
-            width: 100%;
-            aspect-ratio: 4 / 3;
-            background: #f8f8f8;
-            border: 1px solid #ddd;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #aaa;
-            font-size: 12px;
-            font-weight: 500;
-            letter-spacing: 1px;
-        }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="header">
-            <div class="brand"><span>FORJE</span> Retail Training</div>
+        <!-- Video Hero -->
+        <div class="video-hero">
+            <video
+                id="heroVideo"
+                src="forje-vsl.mp4"
+                playsinline
+                muted
+                poster="vsl-assets/screenshots/01-landing.png"
+            ></video>
+            <div class="video-overlay" id="videoOverlay" onclick="playVideo()">
+                <div class="play-btn"></div>
+            </div>
         </div>
 
-        <div class="hero">
-            <div class="hero-quote">"Your customers want more.</div>
-            <div class="hero-quote-end">Show them."</div>
-            <div class="hero-credibility">From interviews with Nigerian retail experts at global sports brands</div>
-        </div>
+        <!-- Content -->
+        <div class="content">
+            <div class="header">
+                <div class="brand"><span>FORJE</span> Retail Training</div>
+                <div class="demo-badge">Demo</div>
+            </div>
 
-        <div class="hero-product">
-            <div class="product-image-placeholder">PUMA PRODUCT IMAGE</div>
-        </div>
+            <div class="section-label">Try the games</div>
 
-        <div class="section-label">Try the games</div>
+            <div class="games-grid">
+                <a href="puma-customer-game.html" class="game-tile">
+                    <div class="game-icon">🎯</div>
+                    <div class="game-title">Customer Says</div>
+                    <div class="game-time">2 min</div>
+                </a>
 
-        <div class="games-grid">
-            <a href="puma-customer-game.html" class="game-tile">
-                <div class="game-icon">🎯</div>
-                <div class="game-title">Customer Says</div>
-                <div class="game-time">2 min</div>
-            </a>
+                <a href="puma-basket-game-v2.html" class="game-tile">
+                    <div class="game-icon">🛒</div>
+                    <div class="game-title">Build the Basket</div>
+                    <div class="game-time">3 min</div>
+                </a>
 
-            <a href="puma-basket-game-v2.html" class="game-tile">
-                <div class="game-icon">🛒</div>
-                <div class="game-title">Build the Basket</div>
-                <div class="game-time">3 min</div>
-            </a>
+                <a href="puma-approach-game.html" class="game-tile">
+                    <div class="game-icon">💬</div>
+                    <div class="game-title">The Approach</div>
+                    <div class="game-time">2 min</div>
+                </a>
 
-            <a href="puma-approach-game.html" class="game-tile">
-                <div class="game-icon">💬</div>
-                <div class="game-title">The Approach</div>
-                <div class="game-time">2 min</div>
-            </a>
-
-            <a href="lesson-customer-types.html" class="game-tile lesson">
-                <div class="game-icon">📖</div>
-                <div class="game-title">Sample Lesson</div>
-                <div class="game-time">5 min read</div>
-            </a>
+                <a href="lesson-customer-types.html" class="game-tile lesson">
+                    <div class="game-icon">📖</div>
+                    <div class="game-title">Sample Lesson</div>
+                    <div class="game-time">5 min read</div>
+                </a>
+            </div>
         </div>
     </div>
 
@@ -251,5 +287,25 @@
             <a href="course-outline.html" class="btn-secondary">📋 View course outline</a>
         </div>
     </div>
+
+    <script>
+        const video = document.getElementById('heroVideo');
+        const overlay = document.getElementById('videoOverlay');
+
+        function playVideo() {
+            video.muted = false;
+            video.play();
+            overlay.classList.add('hidden');
+        }
+
+        video.addEventListener('ended', () => {
+            overlay.classList.remove('hidden');
+        });
+
+        // Auto-play muted on load
+        video.play().catch(() => {
+            // Autoplay blocked, show play button
+        });
+    </script>
 </body>
 </html>
