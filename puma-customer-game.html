@@ -40,6 +40,7 @@
         .header {
             text-align: center;
             margin-bottom: 16px;
+            position: relative;
         }
 
         .header h1 {
@@ -47,6 +48,16 @@
             font-weight: 600;
             margin: 0;
             color: var(--text);
+        }
+
+        .back-link {
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 14px;
+            color: var(--text-muted);
+            text-decoration: none;
         }
 
         /* Score bar - Cash register style */
@@ -557,6 +568,7 @@
         <!-- Game Screen -->
         <div class="game-screen" id="gameScreen">
             <div class="header">
+                <a href="index.html" class="back-link">← Back</a>
                 <h1>Customer Says</h1>
             </div>
 
@@ -619,7 +631,7 @@
             </div>
 
             <button class="btn" onclick="startGame()">Play Again</button>
-            <button class="btn btn-secondary" onclick="shareResults()">Screenshot & Share</button>
+            <a href="index.html" class="btn btn-secondary">← Back to Demo</a>
         </div>
     </div>
 

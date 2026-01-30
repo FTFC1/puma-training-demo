@@ -55,6 +55,7 @@
         /* Header */
         .header {
             margin-bottom: 20px;
+            position: relative;
         }
 
         .header h1 {
@@ -63,6 +64,14 @@
             margin: 0;
             color: var(--puma-black);
             letter-spacing: -0.02em;
+        }
+
+        .back-link {
+            display: inline-block;
+            font-size: 14px;
+            color: var(--text-muted);
+            text-decoration: none;
+            margin-bottom: 8px;
         }
 
         .progress-bar {
@@ -535,6 +544,7 @@
         <!-- Game Screen -->
         <div class="game-screen" id="gameScreen">
             <div class="header">
+                <a href="index.html" class="back-link">← Back</a>
                 <h1>Build the Basket</h1>
                 <div class="progress-bar">
                     <div class="progress-fill" id="progressFill" style="width: 0%"></div>
@@ -621,7 +631,7 @@
             </div>
 
             <button class="btn" onclick="playAgain()">Play Again</button>
-            <button class="btn btn-secondary" onclick="shareResults()">Screenshot & Share</button>
+            <a href="index.html" class="btn btn-secondary">← Back to Demo</a>
         </div>
     </div>
 
