@@ -299,9 +299,30 @@
                 page-break-inside: avoid;
             }
         }
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 12px 18px;
+            font-size: 15px;
+            font-weight: 600;
+            color: #1a1a1a;
+            background: #fff;
+            border: 1px solid #ccc;
+            border-radius: 24px;
+            text-decoration: none;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            min-height: 44px;
+            margin-bottom: 24px;
+        }
+        .back-btn:active {
+            transform: scale(0.96);
+        }
     </style>
 </head>
 <body>
+
+<a href="index.html" class="back-btn">← Back to Demo</a>
 
 <div class="header">
     <div class="header-badge">PUMA Lekki</div>
