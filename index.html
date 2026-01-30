@@ -259,12 +259,11 @@
                 src="forje-vsl.mp4?v=9"
                 playsinline
                 muted
+                autoplay
+                loop
                 poster="vsl-assets/screenshots/06-basket-question.png"
             ></video>
-            <div class="replay-corner" id="replayCorner" onclick="replayVideo()">↻</div>
-            <div class="video-overlay" id="videoOverlay" onclick="playVideo()">
-                <div class="play-btn" id="playBtn"></div>
-            </div>
+            <div class="replay-corner" onclick="replayVideo()">↻</div>
         </div>
 
         <!-- Content -->
@@ -313,29 +312,11 @@
 
     <script>
         const video = document.getElementById('heroVideo');
-        const overlay = document.getElementById('videoOverlay');
-
-        function playVideo() {
-            video.currentTime = 0;
-            video.muted = false;
-            video.play();
-            overlay.classList.add('hidden');
-        }
 
         function replayVideo() {
             video.currentTime = 0;
             video.play();
         }
-
-        video.addEventListener('ended', () => {
-            // Loop back to start
-            video.currentTime = 0;
-        });
-
-        // Auto-play muted on load
-        video.play().catch(() => {
-            // Autoplay blocked, show play button
-        });
     </script>
 </body>
 </html>
