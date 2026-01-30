@@ -318,11 +318,117 @@
         .back-btn:active {
             transform: scale(0.96);
         }
+
+        /* Demo Section */
+        .demo-section {
+            background: #f5f5f5;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 32px;
+        }
+        .demo-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+        .demo-brand {
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: #888;
+            text-transform: uppercase;
+        }
+        .demo-brand span {
+            color: #8b6914;
+        }
+        .demo-badge {
+            background: #8b6914;
+            color: #fff;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 6px 14px;
+            border-radius: 16px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .demo-label {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: #888;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+        .demo-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+        .demo-tile {
+            background: #fff;
+            border-radius: 12px;
+            padding: 16px;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+        .demo-tile:active {
+            transform: scale(0.98);
+        }
+        .demo-tile.lesson {
+            background: #e5dcd3;
+        }
+        .demo-icon {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+        .demo-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 2px;
+        }
+        .demo-time {
+            font-size: 12px;
+            color: #888;
+        }
     </style>
 </head>
 <body>
 
-<a href="index.html" class="back-btn">← Back to Demo</a>
+<a href="index.html" class="back-btn">← Back</a>
+
+<!-- Demo Section -->
+<div class="demo-section">
+    <div class="demo-header">
+        <div class="demo-brand"><span>FORJE</span> RETAIL TRAINING</div>
+        <div class="demo-badge">Demo</div>
+    </div>
+    <div class="demo-label">Try the games</div>
+    <div class="demo-grid">
+        <a href="puma-customer-game.html" class="demo-tile">
+            <div class="demo-icon">🎯</div>
+            <div class="demo-title">Customer Says</div>
+            <div class="demo-time">2 min</div>
+        </a>
+        <a href="puma-basket-game-v2.html" class="demo-tile">
+            <div class="demo-icon">🛒</div>
+            <div class="demo-title">Build the Basket</div>
+            <div class="demo-time">3 min</div>
+        </a>
+        <a href="puma-approach-game.html" class="demo-tile">
+            <div class="demo-icon">💬</div>
+            <div class="demo-title">The Approach</div>
+            <div class="demo-time">2 min</div>
+        </a>
+        <a href="lesson-customer-types.html" class="demo-tile lesson">
+            <div class="demo-icon">📖</div>
+            <div class="demo-title">Sample Lesson</div>
+            <div class="demo-time">5 min read</div>
+        </a>
+    </div>
+</div>
 
 <div class="header">
     <div class="header-badge">PUMA Lekki</div>
