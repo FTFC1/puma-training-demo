@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Customer Says | PUMA Training</title>
+    <style>
+        :root {
+            --puma-black: #000;
+            --puma-red: #e30613;
+            --bg: #f5f5f5;
+            --card-bg: #fff;
+            --text: #1a1a1a;
+            --text-muted: #666;
+            --correct: #22c55e;
+            --wrong: #ef4444;
+            --missed: #f59e0b;
+        }
+
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+
+        .game-container {
+            max-width: 420px;
+            margin: 0 auto;
+            padding: 16px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 16px;
+        }
+
+        .header h1 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin: 0;
+            color: var(--text);
+        }
+
+        /* Score bar - Cash register style */
+        .score-bar {
+            background: var(--puma-black);
+            color: white;
+            padding: 12px 16px;
+            margin: 0 -16px 16px -16px;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .score-item {
+            text-align: center;
+        }
+
+        .score-value {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #86efac;
+        }
+
+        .score-value.streak {
+            color: #fcd34d;
+        }
+
+        .score-value.question {
+            color: #fff;
+        }
+
+        .score-label {
+            font-size: 0.65rem;
+            color: #999;
+            text-transform: uppercase;
+        }
+
+        .scenario-number {
+            text-align: center;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+        }
+
+        .quote-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 16px;
+            text-align: center;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+        }
+
+        .quote-label {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .quote-text {
+            font-size: 1.2rem;
+            font-style: italic;
+            line-height: 1.4;
+            color: var(--text);
+        }
+
+        .quote-text::before {
+            content: '"';
+            color: var(--puma-red);
+        }
+
+        .quote-text::after {
+            content: '"';
+            color: var(--puma-red);
+        }
+
+        .question {
+            text-align: center;
+            font-size: 0.9rem;
+            margin-bottom: 12px;
+            color: var(--text-muted);
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        /* R6.2 SPACIOUS option styling */
+        .option {
+            background: var(--card-bg);
+            border: 2px solid transparent;
+            border-radius: 12px;
+            padding: 18px 20px;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+            position: relative;
+        }
+
+        .option:active {
+            transform: scale(0.98);
+        }
+
+        .option.selected {
+            border-color: var(--puma-black);
+        }
+
+        .option.correct {
+            border-color: var(--correct);
+            background: #fafffe;
+        }
+
+        .option.wrong {
+            border-color: var(--wrong);
+            background: #fffafa;
+        }
+
+        .option.was-correct {
+            border-color: var(--correct);
+            background: #fafffe;
+            opacity: 0.7;
+        }
+
+        /* Corner badge */
+        .option-badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: white;
+        }
+
+        .option.correct .option-badge,
+        .option.was-correct .option-badge {
+            display: flex;
+            background: var(--correct);
+        }
+
+        .option.correct .option-badge::after,
+        .option.was-correct .option-badge::after {
+            content: '✓';
+        }
+
+        .option.wrong .option-badge {
+            display: flex;
+            background: var(--wrong);
+        }
+
+        .option.wrong .option-badge::after {
+            content: '✗';
+        }
+
+        .option-letter {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            flex-shrink: 0;
+            color: var(--text);
+        }
+
+        .option.correct .option-letter,
+        .option.was-correct .option-letter {
+            background: var(--correct);
+            color: white;
+        }
+
+        .option.wrong .option-letter {
+            background: var(--wrong);
+            color: white;
+        }
+
+        .option-text {
+            flex: 1;
+        }
+
+        .option-name {
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: var(--text);
+        }
+
+        .option-description {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-top: 4px;
+            display: none;
+        }
+
+        .option.correct .option-description,
+        .option.wrong .option-description,
+        .option.was-correct .option-description {
+            display: block;
+        }
+
+        .option.correct .option-description,
+        .option.was-correct .option-description {
+            color: var(--correct);
+        }
+
+        .option.wrong .option-description {
+            color: var(--wrong);
+        }
+
+        .btn {
+            width: 100%;
+            background: var(--puma-black);
+            color: white;
+            border: none;
+            padding: 16px;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .btn:active {
+            transform: scale(0.98);
+        }
+
+        .btn:disabled {
+            opacity: 0.4;
+        }
+
+        .btn-next {
+            position: fixed;
+            bottom: 16px;
+            left: 16px;
+            right: 16px;
+            max-width: 388px;
+            margin: 0 auto;
+            z-index: 10;
+        }
+
+        .game-screen .spacer-for-fixed-btn {
+            height: 70px;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid var(--puma-black);
+            color: var(--puma-black);
+            margin-top: 10px;
+        }
+
+        /* Start screen */
+        .start-screen {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            min-height: 80vh;
+            padding: 20px;
+        }
+
+        .start-screen.hidden {
+            display: none;
+        }
+
+        .start-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--text);
+        }
+
+        .start-subtitle {
+            color: var(--text-muted);
+            margin-bottom: 32px;
+            line-height: 1.5;
+        }
+
+        .game-screen {
+            display: none;
+            flex-direction: column;
+            min-height: calc(100vh - 32px);
+        }
+
+        .game-screen.visible {
+            display: flex;
+        }
+
+        /* Results screen */
+        .results-screen {
+            display: none;
+            padding: 20px;
+        }
+
+        .results-screen.visible {
+            display: block;
+        }
+
+        .results-header {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .results-emoji {
+            font-size: 4rem;
+            margin-bottom: 12px;
+        }
+
+        .results-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--text);
+        }
+
+        .results-stats {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+        }
+
+        .stat-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .stat-row:last-child {
+            border-bottom: none;
+        }
+
+        .stat-label {
+            color: var(--text-muted);
+        }
+
+        .stat-value {
+            font-weight: 600;
+        }
+
+        .stat-value.good {
+            color: var(--correct);
+        }
+
+        /* Customer type cards for learning */
+        .types-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 24px;
+        }
+
+        .type-card {
+            background: var(--card-bg);
+            border-radius: 10px;
+            padding: 14px;
+            text-align: center;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+        }
+
+        .type-name {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--puma-red);
+            margin-bottom: 4px;
+        }
+
+        .type-example {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            font-style: italic;
+        }
+
+        .review-section {
+            background: #fffbeb;
+            border: 1px solid var(--missed);
+            border-radius: 12px;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+
+        .review-header {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #b45309;
+            padding: 14px 16px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .review-header::after {
+            content: '▼';
+            font-size: 0.7rem;
+            transition: transform 0.2s ease;
+        }
+
+        .review-section.collapsed .review-header::after {
+            transform: rotate(-90deg);
+        }
+
+        .review-list {
+            padding: 0 16px 16px 16px;
+        }
+
+        .review-section.collapsed .review-list {
+            display: none;
+        }
+
+        .review-item {
+            background: var(--card-bg);
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .review-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .review-quote {
+            font-size: 0.85rem;
+            color: var(--text);
+            font-style: italic;
+            margin-bottom: 8px;
+        }
+
+        .review-comparison {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 8px;
+            font-size: 0.75rem;
+        }
+
+        .review-wrong-pick {
+            color: var(--wrong);
+        }
+
+        .review-correct-pick {
+            color: var(--correct);
+        }
+
+        .review-tip {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            line-height: 1.4;
+            padding-top: 8px;
+            border-top: 1px solid #eee;
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <!-- Start Screen -->
+        <div class="start-screen" id="startScreen">
+            <div class="start-title">Customer Says</div>
+            <div class="start-subtitle">
+                A customer walks in and says something.<br>
+                Can you identify what type they are?
+            </div>
+
+            <div class="types-grid">
+                <div class="type-card">
+                    <div class="type-name">GUIDED</div>
+                    <div class="type-example">"Give me things that fit"</div>
+                </div>
+                <div class="type-card">
+                    <div class="type-name">EXPERT</div>
+                    <div class="type-example">"I know the Nitro"</div>
+                </div>
+                <div class="type-card">
+                    <div class="type-name">ACTIVITY</div>
+                    <div class="type-example">"I want to start running"</div>
+                </div>
+                <div class="type-card">
+                    <div class="type-name">MATERIAL</div>
+                    <div class="type-example">"How do I clean this?"</div>
+                </div>
+                <div class="type-card">
+                    <div class="type-name">GIFT</div>
+                    <div class="type-example">"For my son's birthday"</div>
+                </div>
+                <div class="type-card">
+                    <div class="type-name">CASUAL</div>
+                    <div class="type-example">"Something comfortable"</div>
+                </div>
+            </div>
+
+            <button class="btn" onclick="startGame()">Start Training</button>
+        </div>
+
+        <!-- Game Screen -->
+        <div class="game-screen" id="gameScreen">
+            <div class="header">
+                <h1>Customer Says</h1>
+            </div>
+
+            <div class="score-bar">
+                <div class="score-item">
+                    <div class="score-value" id="correctCount">0</div>
+                    <div class="score-label">Correct</div>
+                </div>
+                <div class="score-item">
+                    <div class="score-value streak" id="streakCount">0</div>
+                    <div class="score-label">Streak</div>
+                </div>
+                <div class="score-item">
+                    <div class="score-value question" id="questionNum">1/10</div>
+                    <div class="score-label">Question</div>
+                </div>
+            </div>
+
+            <div class="quote-card">
+                <div class="quote-label">Customer says</div>
+                <div class="quote-text" id="quoteText">I just want clothes, give me things that fit</div>
+            </div>
+
+            <div class="question">What type of customer is this?</div>
+
+            <div class="options" id="optionsList"></div>
+
+            <div class="spacer-for-fixed-btn"></div>
+
+            <button class="btn btn-next" id="nextBtn" onclick="nextQuestion()" disabled>Next Question</button>
+        </div>
+
+        <!-- Results Screen -->
+        <div class="results-screen" id="resultsScreen">
+            <div class="results-header">
+                <div class="results-emoji" id="resultsEmoji">🏆</div>
+                <div class="results-title" id="resultsTitle">Customer Reader!</div>
+            </div>
+
+            <div class="results-stats">
+                <div class="stat-row">
+                    <span class="stat-label">Correct Answers</span>
+                    <span class="stat-value good" id="finalCorrect">8/10</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">Best Streak</span>
+                    <span class="stat-value" id="bestStreak">5</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">Accuracy</span>
+                    <span class="stat-value good" id="accuracy">80%</span>
+                </div>
+            </div>
+
+            <div class="review-section" id="reviewSection" style="display: none;">
+                <div class="review-header" onclick="toggleReview()">
+                    <span>Review These Types (<span id="reviewCount">0</span>)</span>
+                </div>
+                <div class="review-list" id="reviewList"></div>
+            </div>
+
+            <button class="btn" onclick="startGame()">Play Again</button>
+            <button class="btn btn-secondary" onclick="shareResults()">Screenshot & Share</button>
+        </div>
+    </div>
+
+    <script>
+        const customerTypes = {
+            GUIDED: {
+                name: "GUIDED BUYER",
+                description: "They need help. Lead them confidently and they'll say yes to your suggestions.",
+                approach: "Build them a full outfit. They WANT recommendations."
+            },
+            EXPERT: {
+                name: "EXPERT BUYER",
+                description: "They know what they want. Match their expertise, don't undersell them.",
+                approach: "Ask smart questions: 'How okay with your Nitro? Trying to get socks?'"
+            },
+            ACTIVITY: {
+                name: "ACTIVITY BUYER",
+                description: "They're doing a specific activity. Match products to that activity.",
+                approach: "Suggest gear for their activity: running → socks, belt, base layer."
+            },
+            MATERIAL: {
+                name: "MATERIAL-CURIOUS",
+                description: "They're asking about care or material. They WANT the cross-sell!",
+                approach: "Don't miss this! They're asking for care products directly."
+            },
+            GIFT: {
+                name: "GIFT BUYER",
+                description: "They're buying for someone else. Presentation matters.",
+                approach: "Suggest premium shoe bag, care kit, gift wrapping."
+            },
+            CASUAL: {
+                name: "CASUAL BUYER",
+                description: "They want everyday comfort, not performance.",
+                approach: "Show lifestyle products, not technical gear."
+            }
+        };
+
+        const scenarios = [
+            // GUIDED (6 scenarios)
+            { quote: "I just want clothes, give me things that fit", correct: "GUIDED", wrong: ["EXPERT", "ACTIVITY", "MATERIAL"] },
+            { quote: "What do you think fits my body size?", correct: "GUIDED", wrong: ["EXPERT", "CASUAL", "ACTIVITY"] },
+            { quote: "I don't know what I'm looking for", correct: "GUIDED", wrong: ["EXPERT", "ACTIVITY", "MATERIAL"] },
+            { quote: "Help me pick something nice", correct: "GUIDED", wrong: ["EXPERT", "GIFT", "CASUAL"] },
+            { quote: "I'm not sure what style suits me", correct: "GUIDED", wrong: ["ACTIVITY", "MATERIAL", "EXPERT"] },
+            { quote: "Can you recommend something?", correct: "GUIDED", wrong: ["EXPERT", "CASUAL", "GIFT"] },
+
+            // EXPERT (6 scenarios)
+            { quote: "I buy the Nitro, I know the new one just came out", correct: "EXPERT", wrong: ["GUIDED", "ACTIVITY", "CASUAL"] },
+            { quote: "I've been buying PUMA for years, show me the new stuff", correct: "EXPERT", wrong: ["GUIDED", "GIFT", "MATERIAL"] },
+            { quote: "Is the Deviate better than the Velocity for tempo runs?", correct: "EXPERT", wrong: ["ACTIVITY", "GUIDED", "CASUAL"] },
+            { quote: "I already have the RS-X, what's different about this one?", correct: "EXPERT", wrong: ["GUIDED", "CASUAL", "MATERIAL"] },
+            { quote: "The Suede Classic colorway from last season was better", correct: "EXPERT", wrong: ["MATERIAL", "CASUAL", "GUIDED"] },
+            { quote: "I follow PUMA releases, just show me what dropped", correct: "EXPERT", wrong: ["GUIDED", "ACTIVITY", "GIFT"] },
+
+            // ACTIVITY (7 scenarios)
+            { quote: "I want to start running, which shoes are good?", correct: "ACTIVITY", wrong: ["GUIDED", "EXPERT", "CASUAL"] },
+            { quote: "I go to the gym, weights and cardio", correct: "ACTIVITY", wrong: ["CASUAL", "GUIDED", "MATERIAL"] },
+            { quote: "Training for Lagos Marathon next month", correct: "ACTIVITY", wrong: ["EXPERT", "CASUAL", "GIFT"] },
+            { quote: "I need something for football on weekends", correct: "ACTIVITY", wrong: ["CASUAL", "GUIDED", "EXPERT"] },
+            { quote: "Looking for shoes to play basketball", correct: "ACTIVITY", wrong: ["CASUAL", "GIFT", "GUIDED"] },
+            { quote: "I do HIIT classes three times a week", correct: "ACTIVITY", wrong: ["EXPERT", "CASUAL", "MATERIAL"] },
+            { quote: "Need gear for my morning jogs", correct: "ACTIVITY", wrong: ["CASUAL", "GUIDED", "GIFT"] },
+
+            // MATERIAL (6 scenarios)
+            { quote: "I like this suede, how would I clean it?", correct: "MATERIAL", wrong: ["ACTIVITY", "CASUAL", "GUIDED"] },
+            { quote: "White shoes get dirty so fast", correct: "MATERIAL", wrong: ["CASUAL", "ACTIVITY", "GIFT"] },
+            { quote: "These look delicate, how do I maintain them?", correct: "MATERIAL", wrong: ["GUIDED", "GIFT", "CASUAL"] },
+            { quote: "Will this leather last if I wear it daily?", correct: "MATERIAL", wrong: ["CASUAL", "ACTIVITY", "EXPERT"] },
+            { quote: "How do I keep this mesh clean?", correct: "MATERIAL", wrong: ["ACTIVITY", "GUIDED", "GIFT"] },
+            { quote: "Is this material easy to wash?", correct: "MATERIAL", wrong: ["CASUAL", "GUIDED", "ACTIVITY"] },
+
+            // GIFT (5 scenarios)
+            { quote: "It's for my son's birthday", correct: "GIFT", wrong: ["GUIDED", "CASUAL", "MATERIAL"] },
+            { quote: "I'm looking for a gift for my colleague", correct: "GIFT", wrong: ["GUIDED", "EXPERT", "CASUAL"] },
+            { quote: "Shopping for my wife's anniversary present", correct: "GIFT", wrong: ["GUIDED", "MATERIAL", "CASUAL"] },
+            { quote: "My nephew just got into university", correct: "GIFT", wrong: ["GUIDED", "ACTIVITY", "CASUAL"] },
+            { quote: "Need something nice to give my boss", correct: "GIFT", wrong: ["EXPERT", "GUIDED", "MATERIAL"] },
+
+            // CASUAL (5 scenarios)
+            { quote: "Just something comfortable for weekends", correct: "CASUAL", wrong: ["ACTIVITY", "EXPERT", "MATERIAL"] },
+            { quote: "Just a casual t-shirt to wear about", correct: "CASUAL", wrong: ["ACTIVITY", "EXPERT", "GUIDED"] },
+            { quote: "Something to wear to the mall", correct: "CASUAL", wrong: ["ACTIVITY", "EXPERT", "GIFT"] },
+            { quote: "I just want everyday wear, nothing serious", correct: "CASUAL", wrong: ["ACTIVITY", "MATERIAL", "EXPERT"] },
+            { quote: "Looking for something relaxed, not for sports", correct: "CASUAL", wrong: ["ACTIVITY", "EXPERT", "GUIDED"] }
+        ];
+
+        let currentQuestion = 0;
+        let correct = 0;
+        let streak = 0;
+        let bestStreak = 0;
+        let totalQuestions = 10;
+        let gameScenarios = [];
+        let answered = false;
+        let missedTypes = {};
+        let wrongAnswers = [];
+
+        function shuffle(arr) {
+            const a = [...arr];
+            for (let i = a.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [a[i], a[j]] = [a[j], a[i]];
+            }
+            return a;
+        }
+
+        function startGame() {
+            currentQuestion = 0;
+            correct = 0;
+            streak = 0;
+            bestStreak = 0;
+            answered = false;
+            missedTypes = {};
+            wrongAnswers = [];
+
+            gameScenarios = shuffle(scenarios).slice(0, totalQuestions);
+
+            document.getElementById('startScreen').classList.add('hidden');
+            document.getElementById('resultsScreen').classList.remove('visible');
+            document.getElementById('gameScreen').classList.add('visible');
+
+            loadQuestion();
+        }
+
+        function loadQuestion() {
+            answered = false;
+            const scenario = gameScenarios[currentQuestion];
+
+            document.getElementById('correctCount').textContent = correct;
+            document.getElementById('streakCount').textContent = streak;
+            document.getElementById('questionNum').textContent = `${currentQuestion + 1}/${totalQuestions}`;
+            document.getElementById('quoteText').textContent = scenario.quote;
+
+            const options = shuffle([scenario.correct, ...scenario.wrong]);
+
+            const optionsList = document.getElementById('optionsList');
+            optionsList.innerHTML = options.map((type, i) => {
+                const typeInfo = customerTypes[type];
+                return `
+                    <div class="option" data-type="${type}" onclick="selectOption(this)">
+                        <div class="option-badge"></div>
+                        <div class="option-letter">${String.fromCharCode(65 + i)}</div>
+                        <div class="option-text">
+                            <div class="option-name">${typeInfo.name}</div>
+                            <div class="option-description">${typeInfo.approach}</div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            document.getElementById('nextBtn').disabled = true;
+        }
+
+        function selectOption(element) {
+            if (answered) return;
+            answered = true;
+
+            const selectedType = element.dataset.type;
+            const scenario = gameScenarios[currentQuestion];
+            const isCorrect = selectedType === scenario.correct;
+
+            document.querySelectorAll('.option').forEach(opt => {
+                const type = opt.dataset.type;
+                if (type === scenario.correct) {
+                    opt.classList.add(type === selectedType ? 'correct' : 'was-correct');
+                } else if (type === selectedType) {
+                    opt.classList.add('wrong');
+                }
+            });
+
+            if (isCorrect) {
+                correct++;
+                streak++;
+                if (streak > bestStreak) bestStreak = streak;
+            } else {
+                streak = 0;
+                missedTypes[scenario.correct] = (missedTypes[scenario.correct] || 0) + 1;
+                wrongAnswers.push({
+                    quote: scenario.quote,
+                    youPicked: customerTypes[selectedType].name,
+                    correctAnswer: customerTypes[scenario.correct].name,
+                    correctApproach: customerTypes[scenario.correct].approach
+                });
+            }
+
+            document.getElementById('correctCount').textContent = correct;
+            document.getElementById('streakCount').textContent = streak;
+
+            document.getElementById('nextBtn').disabled = false;
+            document.getElementById('nextBtn').textContent =
+                currentQuestion < totalQuestions - 1 ? 'Next Question' : 'See Results';
+        }
+
+        function nextQuestion() {
+            currentQuestion++;
+            if (currentQuestion >= totalQuestions) {
+                showResults();
+            } else {
+                loadQuestion();
+            }
+        }
+
+        function showResults() {
+            document.getElementById('gameScreen').classList.remove('visible');
+            document.getElementById('resultsScreen').classList.add('visible');
+
+            const accuracy = Math.round((correct / totalQuestions) * 100);
+
+            let emoji, title;
+            if (accuracy >= 90) {
+                emoji = '🏆';
+                title = 'Customer Expert!';
+            } else if (accuracy >= 70) {
+                emoji = '🌟';
+                title = 'Great Reader!';
+            } else if (accuracy >= 50) {
+                emoji = '👍';
+                title = 'Getting There!';
+            } else {
+                emoji = '💪';
+                title = 'Keep Practicing!';
+            }
+
+            document.getElementById('resultsEmoji').textContent = emoji;
+            document.getElementById('resultsTitle').textContent = title;
+            document.getElementById('finalCorrect').textContent = `${correct}/${totalQuestions}`;
+            document.getElementById('bestStreak').textContent = bestStreak;
+            document.getElementById('accuracy').textContent = accuracy + '%';
+
+            const reviewSection = document.getElementById('reviewSection');
+            const reviewList = document.getElementById('reviewList');
+
+            if (wrongAnswers.length > 0) {
+                reviewSection.style.display = 'block';
+                reviewSection.classList.add('collapsed');
+                document.getElementById('reviewCount').textContent = wrongAnswers.length;
+                reviewList.innerHTML = wrongAnswers.map(wa => {
+                    return `
+                        <div class="review-item">
+                            <div class="review-quote">"${wa.quote}"</div>
+                            <div class="review-comparison">
+                                <span class="review-wrong-pick">You said: ${wa.youPicked}</span>
+                                <span class="review-correct-pick">Correct: ${wa.correctAnswer}</span>
+                            </div>
+                            <div class="review-tip">${wa.correctApproach}</div>
+                        </div>
+                    `;
+                }).join('');
+            } else {
+                reviewSection.style.display = 'none';
+            }
+        }
+
+        function shareResults() {
+            alert('Screenshot this screen and share it in the Telegram group!');
+        }
+
+        function toggleReview() {
+            document.getElementById('reviewSection').classList.toggle('collapsed');
+        }
+    </script>
+</body>
+</html>

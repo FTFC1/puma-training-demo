@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The 5 Customer Types | FORJE Retail Training</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            font-size: 16px;
+            line-height: 1.7;
+            color: #1a1a1a;
+            max-width: 680px;
+            margin: 0 auto;
+            padding: 48px 24px;
+            background: #e5dcd3;
+        }
+
+        /* Header badges row */
+        .badge-row {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+        .badge {
+            display: inline-block;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            text-transform: uppercase;
+        }
+        .badge-dark {
+            background: #1a1a1a;
+            color: #e5dcd3;
+        }
+        .badge-outline {
+            background: transparent;
+            border: 2px solid #1a1a1a;
+            color: #1a1a1a;
+        }
+
+        h1 {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #000;
+            line-height: 1.15;
+        }
+
+        /* Learning outcome card */
+        .learning-card {
+            background: #ddd4ca;
+            border-radius: 12px;
+            padding: 20px 24px;
+            margin-bottom: 40px;
+        }
+        .learning-card-label {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #666;
+            margin-bottom: 8px;
+        }
+        .learning-card-text {
+            font-size: 17px;
+            font-weight: 500;
+            color: #1a1a1a;
+            line-height: 1.5;
+        }
+
+        h2 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-top: 48px;
+            margin-bottom: 20px;
+            color: #000;
+        }
+        h3 {
+            font-size: 17px;
+            font-weight: 600;
+            margin-top: 28px;
+            margin-bottom: 12px;
+        }
+        p {
+            margin-bottom: 16px;
+        }
+        ul, ol {
+            margin-bottom: 16px;
+            padding-left: 24px;
+        }
+        li {
+            margin-bottom: 8px;
+        }
+        strong {
+            font-weight: 600;
+        }
+
+        /* Quote styling */
+        blockquote {
+            background: #fff;
+            border-radius: 12px;
+            padding: 24px 28px;
+            margin: 28px 0;
+            color: #1a1a1a;
+            font-size: 17px;
+            font-style: italic;
+            line-height: 1.6;
+            position: relative;
+        }
+        blockquote::before {
+            content: '"';
+            font-size: 48px;
+            font-family: Georgia, serif;
+            color: #cfc5ba;
+            position: absolute;
+            top: 8px;
+            left: 16px;
+            line-height: 1;
+        }
+        blockquote p {
+            margin: 0;
+            padding-left: 24px;
+        }
+        .quote-source {
+            font-size: 13px;
+            font-style: normal;
+            color: #666;
+            margin-top: 12px;
+            padding-left: 24px;
+        }
+
+        .divider {
+            height: 2px;
+            background: #cfc5ba;
+            margin: 40px 0;
+        }
+
+        /* Customer Type Cards */
+        .type-card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 16px;
+            border-left: 4px solid #1a1a1a;
+        }
+        .type-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+        .type-icon {
+            font-size: 28px;
+        }
+        .type-name {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1a1a1a;
+        }
+        .type-quote {
+            background: #f5f5f5;
+            border-radius: 8px;
+            padding: 12px 16px;
+            margin-bottom: 16px;
+            font-style: italic;
+            color: #444;
+        }
+        .type-quote::before {
+            content: '"';
+            color: #999;
+        }
+        .type-quote::after {
+            content: '"';
+            color: #999;
+        }
+        .type-detail {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+        .type-detail-item {
+            background: #f9f7f5;
+            border-radius: 8px;
+            padding: 12px 14px;
+        }
+        .type-detail-label {
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #888;
+            margin-bottom: 4px;
+        }
+        .type-detail-value {
+            font-size: 14px;
+            font-weight: 600;
+            color: #1a1a1a;
+        }
+        .type-opportunity {
+            margin-top: 12px;
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+        .type-opportunity.high {
+            background: #e0ebe6;
+            color: #1a5a3a;
+        }
+        .type-opportunity.medium {
+            background: #fff8e6;
+            color: #8b6914;
+        }
+        .type-opportunity.very-high {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        /* Scene card - The Problem */
+        .scene-card {
+            background: #2a2a2a;
+            color: #e5dcd3;
+            border-radius: 16px;
+            padding: 28px 32px;
+            margin: 24px 0;
+        }
+        .scene-title {
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #888;
+            margin-bottom: 20px;
+        }
+        .scene-flow {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+        .scene-step {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            padding: 14px 0;
+        }
+        .scene-icon {
+            font-size: 24px;
+            flex-shrink: 0;
+            width: 36px;
+            text-align: center;
+        }
+        .scene-text {
+            font-size: 16px;
+            line-height: 1.5;
+            color: #d9cfc5;
+        }
+        .scene-text strong {
+            color: #fff;
+        }
+        .scene-arrow {
+            display: flex;
+            align-items: center;
+            padding-left: 12px;
+            color: #555;
+            font-size: 18px;
+        }
+        .scene-result {
+            background: rgba(255,255,255,0.08);
+            border-radius: 10px;
+            padding: 16px 20px;
+            margin-top: 12px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+        .scene-result-icon {
+            font-size: 28px;
+        }
+        .scene-result-text {
+            font-size: 17px;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        /* Insight cards */
+        .insight-grid {
+            display: grid;
+            gap: 12px;
+            margin: 24px 0;
+        }
+        .insight-card {
+            background: #fff;
+            border-radius: 10px;
+            padding: 16px 20px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+        .insight-icon {
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+        .insight-text {
+            font-size: 15px;
+            line-height: 1.5;
+        }
+
+        /* Quick reference box */
+        .quick-ref {
+            background: #1a1a1a;
+            color: #e5dcd3;
+            padding: 28px 32px;
+            border-radius: 12px;
+            margin: 36px 0;
+        }
+        .quick-ref-title {
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #999;
+            margin-bottom: 20px;
+        }
+        .quick-ref ul {
+            margin: 0;
+            padding-left: 0;
+            list-style: none;
+        }
+        .quick-ref li {
+            color: #d9cfc5;
+            padding: 8px 0;
+            border-bottom: 1px solid #333;
+            font-size: 15px;
+        }
+        .quick-ref li:last-child {
+            border-bottom: none;
+        }
+        .quick-ref strong {
+            color: #fff;
+        }
+
+        /* Today's Action card */
+        .action-card {
+            background: linear-gradient(135deg, #2d5a3d 0%, #1a3d28 100%);
+            color: #fff;
+            border-radius: 16px;
+            padding: 32px;
+            margin: 40px 0;
+            text-align: center;
+        }
+        .action-card-label {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 12px;
+        }
+        .action-card-text {
+            font-size: 20px;
+            font-weight: 600;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+        .action-card-link {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            color: #fff;
+            text-decoration: none;
+            padding: 14px 28px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 16px;
+            margin-top: 8px;
+        }
+        .action-card-link:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        /* Telegram CTA */
+        .telegram-cta {
+            background: #ddd4ca;
+            border-radius: 12px;
+            padding: 24px 28px;
+            text-align: center;
+            margin: 32px 0;
+        }
+        .telegram-cta-text {
+            font-size: 16px;
+            margin-bottom: 8px;
+        }
+        .telegram-cta-action {
+            font-size: 15px;
+            color: #666;
+        }
+
+        /* Footer */
+        .page-footer {
+            margin-top: 48px;
+            padding-top: 24px;
+            border-top: 2px solid #cfc5ba;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 13px;
+            color: #666;
+        }
+        .page-footer .brand {
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+        .brand-name {
+            color: #8b6914;
+        }
+
+        /* Print styles */
+        @media print {
+            @page {
+                margin: 2cm 1.5cm;
+                size: A4;
+            }
+            body {
+                padding: 0;
+                font-size: 11pt;
+                background: white;
+                max-width: 100%;
+            }
+            .badge, .learning-card, blockquote, .type-card, .insight-card, .quick-ref, .action-card, .telegram-cta, .scene-card {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+                page-break-inside: avoid;
+            }
+            h1 { font-size: 22pt; }
+            h2 {
+                font-size: 14pt;
+                page-break-after: avoid;
+            }
+            .divider {
+                page-break-after: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="badge-row">
+    <span class="badge badge-dark">Cross-Sell Training</span>
+    <span class="badge badge-outline">⏱️ 5-7 min</span>
+</div>
+
+<h1>The 5 Customer Types</h1>
+
+<div class="learning-card">
+    <div class="learning-card-label">What You'll Learn</div>
+    <div class="learning-card-text">How to read who's buying within seconds — so you know exactly how to approach and what to suggest.</div>
+</div>
+
+<h2>⚠️ The Problem</h2>
+
+<div class="scene-card">
+    <div class="scene-title">What's Actually Happening</div>
+    <div class="scene-flow">
+        <div class="scene-step">
+            <span class="scene-icon">🚶</span>
+            <span class="scene-text"><strong>Customer walks in</strong></span>
+        </div>
+        <div class="scene-arrow">↓</div>
+        <div class="scene-step">
+            <span class="scene-icon">🤷</span>
+            <span class="scene-text">You treat everyone the same — same approach, same pitch</span>
+        </div>
+        <div class="scene-arrow">↓</div>
+        <div class="scene-step">
+            <span class="scene-icon">😐</span>
+            <span class="scene-text">The expert feels patronized. The newbie feels lost. The gift buyer gets ignored.</span>
+        </div>
+        <div class="scene-result">
+            <span class="scene-result-icon">💸</span>
+            <span class="scene-result-text">Missed cross-sell on every transaction.</span>
+        </div>
+    </div>
+</div>
+
+<p>Not all customers want the same thing. <strong>The skill isn't memorizing product pairs — it's recognizing WHO is buying.</strong></p>
+
+<blockquote>
+    <p>The guided buyer needs you to lead. The expert needs you to match their level. Get it backwards and you lose both.</p>
+    <div class="quote-source">— Timi, PUMA Lekki Store</div>
+</blockquote>
+
+<div class="divider"></div>
+
+<h2>👥 The 5 Types</h2>
+
+<p>Every customer who walks in falls into one of these categories. Learn to spot them in seconds.</p>
+
+<!-- Type 1: Guided -->
+<div class="type-card">
+    <div class="type-header">
+        <span class="type-icon">🙋</span>
+        <span class="type-name">The Guided Buyer</span>
+    </div>
+    <div class="type-quote">Give me things that fit me</div>
+    <div class="type-quote">What do you think looks good?</div>
+    <div class="type-detail">
+        <div class="type-detail-item">
+            <div class="type-detail-label">How to Spot</div>
+            <div class="type-detail-value">Asks for opinions, looks around a lot, touches everything</div>
+        </div>
+        <div class="type-detail-item">
+            <div class="type-detail-label">Your Approach</div>
+            <div class="type-detail-value">Lead aggressively — they WANT you to decide</div>
+        </div>
+    </div>
+    <div class="type-opportunity high">✓ HIGH opportunity — they'll say yes to what you suggest</div>
+</div>
+
+<!-- Type 2: Expert -->
+<div class="type-card">
+    <div class="type-header">
+        <span class="type-icon">🎯</span>
+        <span class="type-name">The Expert Buyer</span>
+    </div>
+    <div class="type-quote">I buy the Nitro every year, I know the new one came out</div>
+    <div class="type-quote">I'm looking for the Speedcat in size 43</div>
+    <div class="type-detail">
+        <div class="type-detail-item">
+            <div class="type-detail-label">How to Spot</div>
+            <div class="type-detail-value">Uses product names, knows sizes, walks with purpose</div>
+        </div>
+        <div class="type-detail-item">
+            <div class="type-detail-label">Your Approach</div>
+            <div class="type-detail-value">Match their level — don't undersell, don't patronize</div>
+        </div>
+    </div>
+    <div class="type-opportunity medium">○ MEDIUM opportunity — casual ask: "Trying to get socks with that?"</div>
+</div>
+
+<!-- Type 3: Activity -->
+<div class="type-card">
+    <div class="type-header">
+        <span class="type-icon">🏃</span>
+        <span class="type-name">The Activity Buyer</span>
+    </div>
+    <div class="type-quote">I want to start running</div>
+    <div class="type-quote">Which one is good for gym?</div>
+    <div class="type-detail">
+        <div class="type-detail-item">
+            <div class="type-detail-label">How to Spot</div>
+            <div class="type-detail-value">Describes activity, not product. "For running" not "Velocity Nitro"</div>
+        </div>
+        <div class="type-detail-item">
+            <div class="type-detail-label">Your Approach</div>
+            <div class="type-detail-value">Match add-ons to their activity, not just the product</div>
+        </div>
+    </div>
+    <div class="type-opportunity high">✓ HIGH opportunity — gear for that activity</div>
+</div>
+
+<!-- Type 4: Material-Curious -->
+<div class="type-card">
+    <div class="type-header">
+        <span class="type-icon">✨</span>
+        <span class="type-name">The Material-Curious Buyer</span>
+    </div>
+    <div class="type-quote">I like this suede, how would I clean it?</div>
+    <div class="type-quote">White shoes get dirty fast, eh?</div>
+    <div class="type-detail">
+        <div class="type-detail-item">
+            <div class="type-detail-label">How to Spot</div>
+            <div class="type-detail-value">Asks about care, cleaning, durability — they're telling you what they need</div>
+        </div>
+        <div class="type-detail-item">
+            <div class="type-detail-label">Your Approach</div>
+            <div class="type-detail-value">They're ASKING for the cross-sell — don't miss it!</div>
+        </div>
+    </div>
+    <div class="type-opportunity very-high">✓✓ VERY HIGH opportunity — they're literally asking for care products</div>
+</div>
+
+<!-- Type 5: Gift -->
+<div class="type-card">
+    <div class="type-header">
+        <span class="type-icon">🎁</span>
+        <span class="type-name">The Gift Buyer</span>
+    </div>
+    <div class="type-quote">For my son's birthday</div>
+    <div class="type-quote">It's a gift for someone</div>
+    <div class="type-detail">
+        <div class="type-detail-item">
+            <div class="type-detail-label">How to Spot</div>
+            <div class="type-detail-value">Mentions it's a gift, asks about sizing for someone else</div>
+        </div>
+        <div class="type-detail-item">
+            <div class="type-detail-label">Your Approach</div>
+            <div class="type-detail-value">Presentation matters — suggest gift-worthy extras</div>
+        </div>
+    </div>
+    <div class="type-opportunity high">✓ HIGH opportunity — bags, care kits, gift packaging</div>
+</div>
+
+<div class="divider"></div>
+
+<h2>🧠 Why This Works</h2>
+
+<p>Most staff treat cross-selling as a script: "Would you like socks with that?"</p>
+
+<p>But customers aren't the same. The approach that works on a Guided Buyer will annoy an Expert. The suggestion that's perfect for an Activity Buyer is irrelevant to a Gift Buyer.</p>
+
+<div class="insight-grid">
+    <div class="insight-card">
+        <span class="insight-icon">🙋</span>
+        <span class="insight-text"><strong>Guided:</strong> "Let me put together a complete outfit for you" — they'll say YES</span>
+    </div>
+    <div class="insight-card">
+        <span class="insight-icon">🎯</span>
+        <span class="insight-text"><strong>Expert:</strong> "Trying to get socks?" — casual, respects their expertise</span>
+    </div>
+    <div class="insight-card">
+        <span class="insight-icon">🏃</span>
+        <span class="insight-text"><strong>Activity:</strong> "If you're running, these socks make a big difference" — activity match</span>
+    </div>
+    <div class="insight-card">
+        <span class="insight-icon">✨</span>
+        <span class="insight-text"><strong>Material:</strong> "We have the protector for this suede" — they asked for it</span>
+    </div>
+    <div class="insight-card">
+        <span class="insight-icon">🎁</span>
+        <span class="insight-text"><strong>Gift:</strong> "Want me to add a shoe bag? Makes a nicer gift" — presentation</span>
+    </div>
+</div>
+
+<div class="divider"></div>
+
+<div class="quick-ref">
+    <div class="quick-ref-title">📋 Quick Reference</div>
+    <ul>
+        <li><strong>Guided:</strong> "Give me things that fit" → Lead aggressively</li>
+        <li><strong>Expert:</strong> Knows product names → Match their level, casual cross-sell</li>
+        <li><strong>Activity:</strong> "For running/gym/etc" → Add-ons for that activity</li>
+        <li><strong>Material:</strong> Asks about care → They're asking for the product</li>
+        <li><strong>Gift:</strong> "It's a gift" → Presentation extras</li>
+    </ul>
+</div>
+
+<div class="action-card">
+    <div class="action-card-label">🎯 Build the Skill</div>
+    <div class="action-card-text">Practice identifying customer types until it's instant.<br>Play the game daily — it only takes 3-5 minutes.</div>
+    <a href="puma-customer-game.html" class="action-card-link">Play: Customer Says →</a>
+</div>
+
+<div class="telegram-cta">
+    <div class="telegram-cta-text"><strong>📱 Share in the Group</strong></div>
+    <div class="telegram-cta-action">Which customer type do you see most often at your store?</div>
+</div>
+
+<div class="page-footer">
+    <div class="brand"><span class="brand-name">FORJE</span> Retail Training</div>
+    <div class="next">➡️ Next: The Add-On Mindset</div>
+</div>
+
+</body>
+</html>

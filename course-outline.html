@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Outline | PUMA Lekki Training</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            font-size: 16px;
+            line-height: 1.7;
+            color: #1a1a1a;
+            max-width: 680px;
+            margin: 0 auto;
+            padding: 48px 24px;
+            background: #e5dcd3;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .header-badge {
+            display: inline-block;
+            background: #1a1a1a;
+            color: #e5dcd3;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 6px 14px;
+            border-radius: 20px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+        .header h1 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #000;
+        }
+        .header-sub {
+            color: #666;
+            font-size: 16px;
+        }
+
+        /* Goal card */
+        .goal-card {
+            background: #ddd4ca;
+            border-radius: 12px;
+            padding: 20px 24px;
+            margin-bottom: 40px;
+        }
+        .goal-card-label {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #666;
+            margin-bottom: 8px;
+        }
+        .goal-card-text {
+            font-size: 17px;
+            font-weight: 500;
+            color: #1a1a1a;
+            line-height: 1.5;
+        }
+
+        /* Module sections */
+        .module-section {
+            margin-bottom: 40px;
+        }
+        .module-header {
+            background: #1a1a1a;
+            color: #fff;
+            border-radius: 12px 12px 0 0;
+            padding: 20px 24px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+        .module-number {
+            width: 36px;
+            height: 36px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 16px;
+        }
+        .module-info {
+            flex: 1;
+        }
+        .module-label {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.7;
+        }
+        .module-title {
+            font-size: 18px;
+            font-weight: 700;
+        }
+        .module-status {
+            font-size: 11px;
+            padding: 4px 10px;
+            border-radius: 10px;
+            font-weight: 600;
+        }
+        .module-status.available {
+            background: #22c55e;
+            color: #fff;
+        }
+        .module-status.coming {
+            background: rgba(255,255,255,0.2);
+            color: #fff;
+        }
+
+        .module-body {
+            background: #fff;
+            border-radius: 0 0 12px 12px;
+            padding: 20px 24px;
+        }
+        .module-desc {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 16px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid #eee;
+        }
+
+        /* Mission rows */
+        .mission-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        .mission-row:last-child {
+            border-bottom: none;
+        }
+        .mission-icon {
+            font-size: 18px;
+            width: 28px;
+            text-align: center;
+        }
+        .mission-info {
+            flex: 1;
+        }
+        .mission-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: #1a1a1a;
+        }
+        .mission-meta {
+            font-size: 12px;
+            color: #888;
+        }
+        .mission-link {
+            color: #8b6914;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+        }
+        .mission-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Lesson + Game pairs */
+        .pair-section {
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid #eee;
+        }
+        .pair-label {
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #888;
+            margin-bottom: 12px;
+        }
+        .pair-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 14px;
+            background: #f9f7f5;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+        .pair-item.game {
+            background: #e0ebe6;
+        }
+        .pair-icon {
+            font-size: 20px;
+            width: 28px;
+            text-align: center;
+        }
+        .pair-content {
+            flex: 1;
+        }
+        .pair-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #1a1a1a;
+        }
+        .pair-desc {
+            font-size: 12px;
+            color: #666;
+            margin-top: 2px;
+        }
+        .pair-link {
+            color: #8b6914;
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: 600;
+            margin-top: 4px;
+            display: inline-block;
+        }
+        .pair-item.game .pair-link {
+            color: #2d5a3d;
+        }
+
+        /* How it works */
+        .how-section {
+            background: #ddd4ca;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 40px;
+        }
+        .how-title {
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #666;
+            margin-bottom: 16px;
+        }
+        .how-row {
+            display: flex;
+            gap: 12px;
+            padding: 12px 0;
+            border-bottom: 1px solid #cfc5ba;
+        }
+        .how-row:last-child {
+            border-bottom: none;
+        }
+        .how-icon {
+            font-size: 20px;
+            width: 32px;
+            text-align: center;
+        }
+        .how-content {
+            flex: 1;
+        }
+        .how-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: #1a1a1a;
+        }
+        .how-desc {
+            font-size: 13px;
+            color: #666;
+        }
+
+        /* Footer */
+        .page-footer {
+            margin-top: 48px;
+            padding-top: 24px;
+            border-top: 2px solid #cfc5ba;
+            text-align: center;
+            font-size: 13px;
+            color: #666;
+        }
+        .page-footer .brand {
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+        .brand-name {
+            color: #8b6914;
+        }
+
+        /* Print styles */
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            .module-section, .how-section, .goal-card {
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <div class="header-badge">PUMA Lekki</div>
+    <h1>Retail Sales Training</h1>
+    <p class="header-sub">Cross-sell mastery for floor staff</p>
+</div>
+
+<div class="goal-card">
+    <div class="goal-card-label">Your Goal</div>
+    <div class="goal-card-text">Increase basket size by learning to read customers and suggest the right add-ons at the right time.</div>
+</div>
+
+<!-- MODULE 1: FOUNDATION -->
+<div class="module-section">
+    <div class="module-header">
+        <div class="module-number">1</div>
+        <div class="module-info">
+            <div class="module-label">Module 1</div>
+            <div class="module-title">Foundation</div>
+        </div>
+        <span class="module-status available">Available</span>
+    </div>
+    <div class="module-body">
+        <div class="module-desc">Core skills for engaging customers — the basics that make everything else work.</div>
+
+        <div class="mission-row">
+            <span class="mission-icon">📖</span>
+            <div class="mission-info">
+                <div class="mission-title">The 5-30-60 Rule</div>
+                <div class="mission-meta">Acknowledge, approach, engage</div>
+            </div>
+            <a href="mission-01.html" class="mission-link" target="_blank">Open →</a>
+        </div>
+
+        <div class="mission-row">
+            <span class="mission-icon">📖</span>
+            <div class="mission-info">
+                <div class="mission-title">Kill "Can I Help You?"</div>
+                <div class="mission-meta">Opening lines that work</div>
+            </div>
+            <a href="mission-02.html" class="mission-link" target="_blank">Open →</a>
+        </div>
+
+        <div class="mission-row">
+            <span class="mission-icon">📖</span>
+            <div class="mission-info">
+                <div class="mission-title">The 70/30 Rule</div>
+                <div class="mission-meta">Listening vs talking</div>
+            </div>
+            <a href="mission-03.html" class="mission-link" target="_blank">Open →</a>
+        </div>
+
+        <div class="mission-row">
+            <span class="mission-icon">📖</span>
+            <div class="mission-info">
+                <div class="mission-title">"I'll Think About It"</div>
+                <div class="mission-meta">Handling hesitation</div>
+            </div>
+            <a href="mission-04.html" class="mission-link" target="_blank">Open →</a>
+        </div>
+
+        <div class="mission-row">
+            <span class="mission-icon">📖</span>
+            <div class="mission-info">
+                <div class="mission-title">"It's Too Expensive"</div>
+                <div class="mission-meta">Price objection handling</div>
+            </div>
+            <a href="mission-05.html" class="mission-link" target="_blank">Open →</a>
+        </div>
+
+        <div class="mission-row">
+            <span class="mission-icon">📖</span>
+            <div class="mission-info">
+                <div class="mission-title">Exit Protocol</div>
+                <div class="mission-meta">Capturing non-buyers</div>
+            </div>
+            <a href="mission-06.html" class="mission-link" target="_blank">Open →</a>
+        </div>
+    </div>
+</div>
+
+<!-- CROSS-SELL TRAINING -->
+<div class="module-section">
+    <div class="module-header">
+        <div class="module-number">2</div>
+        <div class="module-info">
+            <div class="module-label">Module 2</div>
+            <div class="module-title">Cross-Sell Training</div>
+        </div>
+        <span class="module-status available">Available</span>
+    </div>
+    <div class="module-body">
+        <div class="module-desc">Learn to read customers, match add-ons to their needs, and say the right thing at the right time.</div>
+
+        <!-- Customer Types -->
+        <div class="pair-section">
+            <div class="pair-label">Part 1: Identify the Customer</div>
+
+            <div class="pair-item">
+                <span class="pair-icon">📖</span>
+                <div class="pair-content">
+                    <div class="pair-title">The 5 Customer Types</div>
+                    <div class="pair-desc">Guided, Expert, Activity, Material-Curious, Gift</div>
+                    <a href="lesson-customer-types.html" class="pair-link" target="_blank">Read lesson →</a>
+                </div>
+            </div>
+
+            <div class="pair-item game">
+                <span class="pair-icon">🎯</span>
+                <div class="pair-content">
+                    <div class="pair-title">Game: Customer Says</div>
+                    <div class="pair-desc">Identify customer types from quotes — play daily</div>
+                    <a href="puma-customer-game.html" class="pair-link" target="_blank">Play game →</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add-On Mindset -->
+        <div class="pair-section">
+            <div class="pair-label">Part 2: Build the Basket</div>
+
+            <div class="pair-item">
+                <span class="pair-icon">📖</span>
+                <div class="pair-content">
+                    <div class="pair-title">The Add-On Mindset</div>
+                    <div class="pair-desc">Why cross-selling helps customers</div>
+                    <a href="lesson-add-on-mindset.html" class="pair-link" target="_blank">Read lesson →</a>
+                </div>
+            </div>
+
+            <div class="pair-item game">
+                <span class="pair-icon">🛒</span>
+                <div class="pair-content">
+                    <div class="pair-title">Game: Build the Basket</div>
+                    <div class="pair-desc">Select the right add-ons — play daily</div>
+                    <a href="puma-basket-game-v2.html" class="pair-link" target="_blank">Play game →</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sales Scripts -->
+        <div class="pair-section">
+            <div class="pair-label">Part 3: The Approach</div>
+
+            <div class="pair-item">
+                <span class="pair-icon">📖</span>
+                <div class="pair-content">
+                    <div class="pair-title">Sales Scripts by Type</div>
+                    <div class="pair-desc">What to say and when to say it</div>
+                    <a href="lesson-sales-scripts.html" class="pair-link" target="_blank">Read lesson →</a>
+                </div>
+            </div>
+
+            <div class="pair-item game">
+                <span class="pair-icon">💬</span>
+                <div class="pair-content">
+                    <div class="pair-title">Game: The Approach</div>
+                    <div class="pair-desc">Practice your responses — play daily</div>
+                    <a href="puma-approach-game.html" class="pair-link" target="_blank">Play game →</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- MODULE 3: Coming Soon -->
+<div class="module-section">
+    <div class="module-header" style="background: #666;">
+        <div class="module-number">3</div>
+        <div class="module-info">
+            <div class="module-label">Module 3</div>
+            <div class="module-title">PUMA Playbook</div>
+        </div>
+        <span class="module-status coming">Coming Soon</span>
+    </div>
+    <div class="module-body" style="opacity: 0.7;">
+        <div class="module-desc">PUMA-specific products, pairings, seasonal focus items, and objection handling.</div>
+    </div>
+</div>
+
+<!-- How It Works -->
+<div class="how-section">
+    <div class="how-title">How to Use This Training</div>
+
+    <div class="how-row">
+        <span class="how-icon">📖</span>
+        <div class="how-content">
+            <div class="how-label">Lessons: Read once</div>
+            <div class="how-desc">5-7 minutes each. Learn the concept.</div>
+        </div>
+    </div>
+
+    <div class="how-row">
+        <span class="how-icon">🎮</span>
+        <div class="how-content">
+            <div class="how-label">Games: Play daily</div>
+            <div class="how-desc">3-5 minutes. Build instincts through repetition.</div>
+        </div>
+    </div>
+
+    <div class="how-row">
+        <span class="how-icon">🏪</span>
+        <div class="how-content">
+            <div class="how-label">Floor: Apply with customers</div>
+            <div class="how-desc">Use what you learn with real customers.</div>
+        </div>
+    </div>
+</div>
+
+<div class="page-footer">
+    <div class="brand"><span class="brand-name">FORJE</span> Retail Training</div>
+    <div>Built for PUMA Lekki</div>
+</div>
+
+</body>
+</html>

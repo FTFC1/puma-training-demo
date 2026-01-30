@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sales Scripts by Type | FORJE Retail Training</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            font-size: 16px;
+            line-height: 1.7;
+            color: #1a1a1a;
+            max-width: 680px;
+            margin: 0 auto;
+            padding: 48px 24px;
+            background: #e5dcd3;
+        }
+
+        /* Header badges row */
+        .badge-row {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+        .badge {
+            display: inline-block;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            text-transform: uppercase;
+        }
+        .badge-dark {
+            background: #1a1a1a;
+            color: #e5dcd3;
+        }
+        .badge-outline {
+            background: transparent;
+            border: 2px solid #1a1a1a;
+            color: #1a1a1a;
+        }
+
+        h1 {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #000;
+            line-height: 1.15;
+        }
+
+        /* Learning outcome card */
+        .learning-card {
+            background: #ddd4ca;
+            border-radius: 12px;
+            padding: 20px 24px;
+            margin-bottom: 40px;
+        }
+        .learning-card-label {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #666;
+            margin-bottom: 8px;
+        }
+        .learning-card-text {
+            font-size: 17px;
+            font-weight: 500;
+            color: #1a1a1a;
+            line-height: 1.5;
+        }
+
+        h2 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-top: 48px;
+            margin-bottom: 20px;
+            color: #000;
+        }
+        h3 {
+            font-size: 17px;
+            font-weight: 600;
+            margin-top: 28px;
+            margin-bottom: 12px;
+        }
+        p {
+            margin-bottom: 16px;
+        }
+        ul, ol {
+            margin-bottom: 16px;
+            padding-left: 24px;
+        }
+        li {
+            margin-bottom: 8px;
+        }
+        strong {
+            font-weight: 600;
+        }
+
+        /* Quote styling */
+        blockquote {
+            background: #fff;
+            border-radius: 12px;
+            padding: 24px 28px;
+            margin: 28px 0;
+            color: #1a1a1a;
+            font-size: 17px;
+            font-style: italic;
+            line-height: 1.6;
+            position: relative;
+        }
+        blockquote::before {
+            content: '"';
+            font-size: 48px;
+            font-family: Georgia, serif;
+            color: #cfc5ba;
+            position: absolute;
+            top: 8px;
+            left: 16px;
+            line-height: 1;
+        }
+        blockquote p {
+            margin: 0;
+            padding-left: 24px;
+        }
+        .quote-source {
+            font-size: 13px;
+            font-style: normal;
+            color: #666;
+            margin-top: 12px;
+            padding-left: 24px;
+        }
+
+        .divider {
+            height: 2px;
+            background: #cfc5ba;
+            margin: 40px 0;
+        }
+
+        /* Scene card */
+        .scene-card {
+            background: #2a2a2a;
+            color: #e5dcd3;
+            border-radius: 16px;
+            padding: 28px 32px;
+            margin: 24px 0;
+        }
+        .scene-title {
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #888;
+            margin-bottom: 20px;
+        }
+        .scene-flow {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+        .scene-step {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            padding: 14px 0;
+        }
+        .scene-icon {
+            font-size: 24px;
+            flex-shrink: 0;
+            width: 36px;
+            text-align: center;
+        }
+        .scene-text {
+            font-size: 16px;
+            line-height: 1.5;
+            color: #d9cfc5;
+        }
+        .scene-text strong {
+            color: #fff;
+        }
+        .scene-arrow {
+            display: flex;
+            align-items: center;
+            padding-left: 12px;
+            color: #555;
+            font-size: 18px;
+        }
+        .scene-result {
+            background: rgba(255,255,255,0.08);
+            border-radius: 10px;
+            padding: 16px 20px;
+            margin-top: 12px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+        .scene-result-icon {
+            font-size: 28px;
+        }
+        .scene-result-text {
+            font-size: 17px;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        /* Script cards */
+        .script-card {
+            background: #fff;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+        .script-header {
+            background: #1a1a1a;
+            color: #fff;
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .script-icon {
+            font-size: 24px;
+        }
+        .script-type {
+            font-size: 16px;
+            font-weight: 700;
+        }
+        .script-body {
+            padding: 20px;
+        }
+        .script-situation {
+            background: #f5f5f5;
+            border-radius: 8px;
+            padding: 12px 16px;
+            margin-bottom: 16px;
+            font-size: 14px;
+        }
+        .script-situation-label {
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: #888;
+            margin-bottom: 4px;
+        }
+
+        /* Dialogue styling */
+        .dialogue {
+            margin: 16px 0;
+        }
+        .dialogue-line {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 12px;
+            align-items: flex-start;
+        }
+        .dialogue-speaker {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            min-width: 70px;
+            padding-top: 4px;
+        }
+        .dialogue-speaker.customer {
+            color: #666;
+        }
+        .dialogue-speaker.you {
+            color: #2d5a3d;
+        }
+        .dialogue-text {
+            flex: 1;
+            background: #f9f7f5;
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        .dialogue-line.you .dialogue-text {
+            background: #e0ebe6;
+            border-left: 3px solid #2d5a3d;
+        }
+
+        /* Key principle */
+        .key-principle {
+            background: #fff8e6;
+            border: 1px solid #d4a017;
+            border-radius: 8px;
+            padding: 14px 18px;
+            margin-top: 16px;
+            display: flex;
+            gap: 10px;
+            align-items: flex-start;
+        }
+        .key-principle-icon {
+            font-size: 18px;
+        }
+        .key-principle-text {
+            font-size: 14px;
+            color: #8b6914;
+            line-height: 1.5;
+        }
+
+        /* Quick reference box */
+        .quick-ref {
+            background: #1a1a1a;
+            color: #e5dcd3;
+            padding: 28px 32px;
+            border-radius: 12px;
+            margin: 36px 0;
+        }
+        .quick-ref-title {
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #999;
+            margin-bottom: 20px;
+        }
+        .quick-ref ul {
+            margin: 0;
+            padding-left: 0;
+            list-style: none;
+        }
+        .quick-ref li {
+            color: #d9cfc5;
+            padding: 8px 0;
+            border-bottom: 1px solid #333;
+            font-size: 15px;
+        }
+        .quick-ref li:last-child {
+            border-bottom: none;
+        }
+        .quick-ref strong {
+            color: #fff;
+        }
+
+        /* Today's Action card */
+        .action-card {
+            background: linear-gradient(135deg, #2d5a3d 0%, #1a3d28 100%);
+            color: #fff;
+            border-radius: 16px;
+            padding: 32px;
+            margin: 40px 0;
+            text-align: center;
+        }
+        .action-card-label {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 12px;
+        }
+        .action-card-text {
+            font-size: 20px;
+            font-weight: 600;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+        .action-card-link {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            color: #fff;
+            text-decoration: none;
+            padding: 14px 28px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 16px;
+            margin-top: 8px;
+        }
+        .action-card-link:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        /* Telegram CTA */
+        .telegram-cta {
+            background: #ddd4ca;
+            border-radius: 12px;
+            padding: 24px 28px;
+            text-align: center;
+            margin: 32px 0;
+        }
+        .telegram-cta-text {
+            font-size: 16px;
+            margin-bottom: 8px;
+        }
+        .telegram-cta-action {
+            font-size: 15px;
+            color: #666;
+        }
+
+        /* Footer */
+        .page-footer {
+            margin-top: 48px;
+            padding-top: 24px;
+            border-top: 2px solid #cfc5ba;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 13px;
+            color: #666;
+        }
+        .page-footer .brand {
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+        .brand-name {
+            color: #8b6914;
+        }
+
+        /* Print styles */
+        @media print {
+            @page {
+                margin: 2cm 1.5cm;
+                size: A4;
+            }
+            body {
+                padding: 0;
+                font-size: 11pt;
+                background: white;
+                max-width: 100%;
+            }
+            .badge, .learning-card, blockquote, .script-card, .key-principle, .quick-ref, .action-card, .telegram-cta, .scene-card {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+                page-break-inside: avoid;
+            }
+            h1 { font-size: 22pt; }
+            h2 {
+                font-size: 14pt;
+                page-break-after: avoid;
+            }
+            .divider {
+                page-break-after: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="badge-row">
+    <span class="badge badge-dark">Cross-Sell Training</span>
+    <span class="badge badge-outline">⏱️ 7-10 min</span>
+</div>
+
+<h1>Sales Scripts by Type</h1>
+
+<div class="learning-card">
+    <div class="learning-card-label">What You'll Learn</div>
+    <div class="learning-card-text">What to actually SAY to each customer type — scripts that feel natural, not robotic.</div>
+</div>
+
+<h2>⚠️ The Problem</h2>
+
+<div class="scene-card">
+    <div class="scene-title">What's Actually Happening</div>
+    <div class="scene-flow">
+        <div class="scene-step">
+            <span class="scene-icon">🎯</span>
+            <span class="scene-text">You identify the customer type correctly</span>
+        </div>
+        <div class="scene-arrow">↓</div>
+        <div class="scene-step">
+            <span class="scene-icon">🤔</span>
+            <span class="scene-text"><strong>But you don't know what to say next</strong></span>
+        </div>
+        <div class="scene-arrow">↓</div>
+        <div class="scene-step">
+            <span class="scene-icon">😬</span>
+            <span class="scene-text">You default to "Can I help you?" or stay silent</span>
+        </div>
+        <div class="scene-result">
+            <span class="scene-result-icon">💨</span>
+            <span class="scene-result-text">The moment passes. Opportunity gone.</span>
+        </div>
+    </div>
+</div>
+
+<p>Knowing the customer type is step one. <strong>Having the words ready is what makes it work.</strong></p>
+
+<blockquote>
+    <p>You can read customers perfectly, but if you freeze up when it's time to talk, it doesn't matter. The script isn't about sounding robotic — it's about having a starting point.</p>
+    <div class="quote-source">— FORJE Training</div>
+</blockquote>
+
+<div class="divider"></div>
+
+<h2>💬 Scripts by Type</h2>
+
+<!-- Guided Buyer -->
+<div class="script-card">
+    <div class="script-header">
+        <span class="script-icon">🙋</span>
+        <span class="script-type">The Guided Buyer</span>
+    </div>
+    <div class="script-body">
+        <div class="script-situation">
+            <div class="script-situation-label">They say</div>
+            "Just give me things that fit" / "What do you think?"
+        </div>
+
+        <div class="dialogue">
+            <div class="dialogue-line">
+                <span class="dialogue-speaker customer">Customer</span>
+                <span class="dialogue-text">"I don't really know what I want. Just show me what looks good."</span>
+            </div>
+            <div class="dialogue-line you">
+                <span class="dialogue-speaker you">You</span>
+                <span class="dialogue-text">"Perfect — let me put something together for you. What are you buying for? Everyday, gym, something specific?"</span>
+            </div>
+            <div class="dialogue-line">
+                <span class="dialogue-speaker customer">Customer</span>
+                <span class="dialogue-text">"Just everyday stuff."</span>
+            </div>
+            <div class="dialogue-line you">
+                <span class="dialogue-speaker you">You</span>
+                <span class="dialogue-text">"Cool. I'll grab a few pieces that work together — shoes, something on top, and we'll see what fits."</span>
+            </div>
+        </div>
+
+        <div class="key-principle">
+            <span class="key-principle-icon">💡</span>
+            <span class="key-principle-text"><strong>Principle:</strong> Lead aggressively. They WANT you to decide. Build the whole outfit — they'll say yes.</span>
+        </div>
+    </div>
+</div>
+
+<!-- Expert Buyer -->
+<div class="script-card">
+    <div class="script-header">
+        <span class="script-icon">🎯</span>
+        <span class="script-type">The Expert Buyer</span>
+    </div>
+    <div class="script-body">
+        <div class="script-situation">
+            <div class="script-situation-label">They say</div>
+            "I buy the Nitro every year" / "Where's the Speedcat in 43?"
+        </div>
+
+        <div class="dialogue">
+            <div class="dialogue-line">
+                <span class="dialogue-speaker customer">Customer</span>
+                <span class="dialogue-text">"I need the Velocity Nitro 3, size 44. You got it?"</span>
+            </div>
+            <div class="dialogue-line you">
+                <span class="dialogue-speaker you">You</span>
+                <span class="dialogue-text">"Yeah, we've got it. Let me grab that for you."</span>
+            </div>
+            <div class="dialogue-line">
+                <span class="dialogue-speaker customer">Customer</span>
+                <span class="dialogue-text">[Trying on shoes]</span>
+            </div>
+            <div class="dialogue-line you">
+                <span class="dialogue-speaker you">You</span>
+                <span class="dialogue-text">"Trying to get socks with that? We just got the performance 3-pack."</span>
+            </div>
+        </div>
+
+        <div class="key-principle">
+            <span class="key-principle-icon">💡</span>
+            <span class="key-principle-text"><strong>Principle:</strong> Match their level. Quick, casual, no explanation needed. Don't patronize.</span>
+        </div>
+    </div>
+</div>
+
+<!-- Activity Buyer -->
+<div class="script-card">
+    <div class="script-header">
+        <span class="script-icon">🏃</span>
+        <span class="script-type">The Activity Buyer</span>
+    </div>
+    <div class="script-body">
+        <div class="script-situation">
+            <div class="script-situation-label">They say</div>
+            "I want to start running" / "Which one is good for gym?"
+        </div>
+
+        <div class="dialogue">
+            <div class="dialogue-line">
+                <span class="dialogue-speaker customer">Customer</span>
+                <span class="dialogue-text">"I want to start running. What do you have?"</span>
+            </div>
+            <div class="dialogue-line you">
+                <span class="dialogue-speaker you">You</span>
+                <span class="dialogue-text">"Nice! Running on roads or trails? And how far — starting with short runs or going for distance?"</span>
+            </div>
+            <div class="dialogue-line">
+                <span class="dialogue-speaker customer">Customer</span>
+                <span class="dialogue-text">"Roads. Just starting, maybe 3-5km."</span>
+            </div>
+            <div class="dialogue-line you">
+                <span class="dialogue-speaker you">You</span>
+                <span class="dialogue-text">"The Velocity Nitro is perfect for that — good cushion, not too heavy. If you're running regularly, these performance socks make a real difference for blisters."</span>
+            </div>
+        </div>
+
+        <div class="key-principle">
+            <span class="key-principle-icon">💡</span>
+            <span class="key-principle-text"><strong>Principle:</strong> Connect add-ons to their activity. "Since you're running..." makes it feel helpful, not salesy.</span>
+        </div>
+    </div>
+</div>
+
+<!-- Material-Curious Buyer -->
+<div class="script-card">
+    <div class="script-header">
+        <span class="script-icon">✨</span>
+        <span class="script-type">The Material-Curious Buyer</span>
+    </div>
+    <div class="script-body">
+        <div class="script-situation">
+            <div class="script-situation-label">They say</div>
+            "How do I clean this suede?" / "White shoes get dirty fast, eh?"
+        </div>
+
+        <div class="dialogue">
+            <div class="dialogue-line">
+                <span class="dialogue-speaker customer">Customer</span>
+                <span class="dialogue-text">"I like this suede, but how would I clean it?"</span>
+            </div>
+            <div class="dialogue-line you">
+                <span class="dialogue-speaker you">You</span>
+                <span class="dialogue-text">"Good question — suede needs the protector spray, honestly. Apply it once, it repels water and stains. We have it for ₦3,500."</span>
+            </div>
+            <div class="dialogue-line">
+                <span class="dialogue-speaker customer">Customer</span>
+                <span class="dialogue-text">"And that works?"</span>
+            </div>
+            <div class="dialogue-line you">
+                <span class="dialogue-speaker you">You</span>
+                <span class="dialogue-text">"Yeah, it's the difference between the shoe lasting or looking rough after a few wears. I'd add it."</span>
+            </div>
+        </div>
+
+        <div class="key-principle">
+            <span class="key-principle-icon">💡</span>
+            <span class="key-principle-text"><strong>Principle:</strong> They're literally asking. Answer directly. This is the easiest cross-sell — don't miss it.</span>
+        </div>
+    </div>
+</div>
+
+<!-- Gift Buyer -->
+<div class="script-card">
+    <div class="script-header">
+        <span class="script-icon">🎁</span>
+        <span class="script-type">The Gift Buyer</span>
+    </div>
+    <div class="script-body">
+        <div class="script-situation">
+            <div class="script-situation-label">They say</div>
+            "For my son's birthday" / "It's a gift for someone"
+        </div>
+
+        <div class="dialogue">
+            <div class="dialogue-line">
+                <span class="dialogue-speaker customer">Customer</span>
+                <span class="dialogue-text">"This is for my son's birthday. He said he wants these."</span>
+            </div>
+            <div class="dialogue-line you">
+                <span class="dialogue-speaker you">You</span>
+                <span class="dialogue-text">"Great choice! Do you know his size, or should we go with something exchangeable?"</span>
+            </div>
+            <div class="dialogue-line">
+                <span class="dialogue-speaker customer">Customer</span>
+                <span class="dialogue-text">"He's a 42, I checked."</span>
+            </div>
+            <div class="dialogue-line you">
+                <span class="dialogue-speaker you">You</span>
+                <span class="dialogue-text">"Perfect. Want me to add a shoe bag? Makes a nicer gift — he can use it for travel too."</span>
+            </div>
+        </div>
+
+        <div class="key-principle">
+            <span class="key-principle-icon">💡</span>
+            <span class="key-principle-text"><strong>Principle:</strong> Presentation matters. Frame add-ons as making the gift better, not as upselling.</span>
+        </div>
+    </div>
+</div>
+
+<div class="divider"></div>
+
+<div class="quick-ref">
+    <div class="quick-ref-title">📋 Quick Reference</div>
+    <ul>
+        <li><strong>Guided:</strong> "Let me put something together for you" → Build full outfit</li>
+        <li><strong>Expert:</strong> "Trying to get socks with that?" → Quick, casual</li>
+        <li><strong>Activity:</strong> "Since you're [activity]..." → Connect to their need</li>
+        <li><strong>Material:</strong> Answer the question directly → They asked for it</li>
+        <li><strong>Gift:</strong> "Want me to add X? Makes a nicer gift" → Presentation frame</li>
+    </ul>
+</div>
+
+<div class="action-card">
+    <div class="action-card-label">🎯 Build the Skill</div>
+    <div class="action-card-text">Practice choosing the right response for each scenario.<br>Play the game daily — it only takes 3-5 minutes.</div>
+    <a href="puma-approach-game.html" class="action-card-link">Play: The Approach →</a>
+</div>
+
+<div class="telegram-cta">
+    <div class="telegram-cta-text"><strong>📱 Share in the Group</strong></div>
+    <div class="telegram-cta-action">Which script felt most natural to use today?</div>
+</div>
+
+<div class="page-footer">
+    <div class="brand"><span class="brand-name">FORJE</span> Retail Training</div>
+    <div class="next">Cross-Sell Training Complete</div>
+</div>
+
+</body>
+</html>

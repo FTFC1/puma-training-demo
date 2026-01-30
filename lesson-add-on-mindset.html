@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Add-On Mindset | FORJE Retail Training</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            font-size: 16px;
+            line-height: 1.7;
+            color: #1a1a1a;
+            max-width: 680px;
+            margin: 0 auto;
+            padding: 48px 24px;
+            background: #e5dcd3;
+        }
+
+        /* Header badges row */
+        .badge-row {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+        .badge {
+            display: inline-block;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            text-transform: uppercase;
+        }
+        .badge-dark {
+            background: #1a1a1a;
+            color: #e5dcd3;
+        }
+        .badge-outline {
+            background: transparent;
+            border: 2px solid #1a1a1a;
+            color: #1a1a1a;
+        }
+
+        h1 {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #000;
+            line-height: 1.15;
+        }
+
+        /* Learning outcome card */
+        .learning-card {
+            background: #ddd4ca;
+            border-radius: 12px;
+            padding: 20px 24px;
+            margin-bottom: 40px;
+        }
+        .learning-card-label {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #666;
+            margin-bottom: 8px;
+        }
+        .learning-card-text {
+            font-size: 17px;
+            font-weight: 500;
+            color: #1a1a1a;
+            line-height: 1.5;
+        }
+
+        h2 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-top: 48px;
+            margin-bottom: 20px;
+            color: #000;
+        }
+        h3 {
+            font-size: 17px;
+            font-weight: 600;
+            margin-top: 28px;
+            margin-bottom: 12px;
+        }
+        p {
+            margin-bottom: 16px;
+        }
+        ul, ol {
+            margin-bottom: 16px;
+            padding-left: 24px;
+        }
+        li {
+            margin-bottom: 8px;
+        }
+        strong {
+            font-weight: 600;
+        }
+
+        /* Quote styling */
+        blockquote {
+            background: #fff;
+            border-radius: 12px;
+            padding: 24px 28px;
+            margin: 28px 0;
+            color: #1a1a1a;
+            font-size: 17px;
+            font-style: italic;
+            line-height: 1.6;
+            position: relative;
+        }
+        blockquote::before {
+            content: '"';
+            font-size: 48px;
+            font-family: Georgia, serif;
+            color: #cfc5ba;
+            position: absolute;
+            top: 8px;
+            left: 16px;
+            line-height: 1;
+        }
+        blockquote p {
+            margin: 0;
+            padding-left: 24px;
+        }
+        .quote-source {
+            font-size: 13px;
+            font-style: normal;
+            color: #666;
+            margin-top: 12px;
+            padding-left: 24px;
+        }
+
+        .divider {
+            height: 2px;
+            background: #cfc5ba;
+            margin: 40px 0;
+        }
+
+        /* Scene card */
+        .scene-card {
+            background: #2a2a2a;
+            color: #e5dcd3;
+            border-radius: 16px;
+            padding: 28px 32px;
+            margin: 24px 0;
+        }
+        .scene-title {
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #888;
+            margin-bottom: 20px;
+        }
+        .scene-flow {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+        .scene-step {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            padding: 14px 0;
+        }
+        .scene-icon {
+            font-size: 24px;
+            flex-shrink: 0;
+            width: 36px;
+            text-align: center;
+        }
+        .scene-text {
+            font-size: 16px;
+            line-height: 1.5;
+            color: #d9cfc5;
+        }
+        .scene-text strong {
+            color: #fff;
+        }
+        .scene-arrow {
+            display: flex;
+            align-items: center;
+            padding-left: 12px;
+            color: #555;
+            font-size: 18px;
+        }
+        .scene-result {
+            background: rgba(255,255,255,0.08);
+            border-radius: 10px;
+            padding: 16px 20px;
+            margin-top: 12px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+        .scene-result-icon {
+            font-size: 28px;
+        }
+        .scene-result-text {
+            font-size: 17px;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        /* Mindset cards */
+        .mindset-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin: 24px 0;
+        }
+        .mindset-card {
+            border-radius: 12px;
+            padding: 20px;
+        }
+        .mindset-card.old {
+            background: #f5e6e0;
+        }
+        .mindset-card.new {
+            background: #e0ebe6;
+        }
+        .mindset-label {
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+        .mindset-card.old .mindset-label {
+            color: #8b3a3a;
+        }
+        .mindset-card.new .mindset-label {
+            color: #2d5a3d;
+        }
+        .mindset-text {
+            font-size: 15px;
+            font-weight: 600;
+            color: #1a1a1a;
+        }
+
+        /* Principle cards */
+        .principle-card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 16px;
+        }
+        .principle-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+        .principle-icon {
+            font-size: 24px;
+        }
+        .principle-title {
+            font-size: 17px;
+            font-weight: 700;
+            color: #1a1a1a;
+        }
+        .principle-text {
+            font-size: 15px;
+            color: #444;
+            line-height: 1.6;
+        }
+        .principle-example {
+            background: #f9f7f5;
+            border-radius: 8px;
+            padding: 14px 16px;
+            margin-top: 12px;
+            font-size: 14px;
+        }
+        .principle-example-label {
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: #888;
+            margin-bottom: 6px;
+        }
+
+        /* Match grid */
+        .match-grid {
+            display: grid;
+            gap: 12px;
+            margin: 24px 0;
+        }
+        .match-row {
+            background: #fff;
+            border-radius: 10px;
+            padding: 16px 20px;
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 12px;
+            align-items: center;
+        }
+        .match-customer {
+            font-size: 14px;
+            color: #666;
+        }
+        .match-arrow {
+            color: #999;
+            font-size: 18px;
+        }
+        .match-addon {
+            font-size: 14px;
+            font-weight: 600;
+            color: #1a1a1a;
+        }
+
+        /* Do/Don't lists */
+        .do-dont-grid {
+            display: grid;
+            gap: 12px;
+            margin: 24px 0;
+        }
+        .do-item, .dont-item {
+            display: flex;
+            gap: 12px;
+            padding: 14px 18px;
+            border-radius: 8px;
+            align-items: flex-start;
+        }
+        .dont-item {
+            background: #f5e6e0;
+        }
+        .do-item {
+            background: #e0ebe6;
+        }
+        .do-icon, .dont-icon {
+            font-size: 18px;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+        .do-text, .dont-text {
+            font-size: 15px;
+            line-height: 1.5;
+        }
+
+        /* Quick reference box */
+        .quick-ref {
+            background: #1a1a1a;
+            color: #e5dcd3;
+            padding: 28px 32px;
+            border-radius: 12px;
+            margin: 36px 0;
+        }
+        .quick-ref-title {
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #999;
+            margin-bottom: 20px;
+        }
+        .quick-ref ul {
+            margin: 0;
+            padding-left: 0;
+            list-style: none;
+        }
+        .quick-ref li {
+            color: #d9cfc5;
+            padding: 8px 0;
+            border-bottom: 1px solid #333;
+            font-size: 15px;
+        }
+        .quick-ref li:last-child {
+            border-bottom: none;
+        }
+        .quick-ref strong {
+            color: #fff;
+        }
+
+        /* Today's Action card */
+        .action-card {
+            background: linear-gradient(135deg, #2d5a3d 0%, #1a3d28 100%);
+            color: #fff;
+            border-radius: 16px;
+            padding: 32px;
+            margin: 40px 0;
+            text-align: center;
+        }
+        .action-card-label {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 12px;
+        }
+        .action-card-text {
+            font-size: 20px;
+            font-weight: 600;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+        .action-card-link {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            color: #fff;
+            text-decoration: none;
+            padding: 14px 28px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 16px;
+            margin-top: 8px;
+        }
+        .action-card-link:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        /* Telegram CTA */
+        .telegram-cta {
+            background: #ddd4ca;
+            border-radius: 12px;
+            padding: 24px 28px;
+            text-align: center;
+            margin: 32px 0;
+        }
+        .telegram-cta-text {
+            font-size: 16px;
+            margin-bottom: 8px;
+        }
+        .telegram-cta-action {
+            font-size: 15px;
+            color: #666;
+        }
+
+        /* Footer */
+        .page-footer {
+            margin-top: 48px;
+            padding-top: 24px;
+            border-top: 2px solid #cfc5ba;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 13px;
+            color: #666;
+        }
+        .page-footer .brand {
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+        .brand-name {
+            color: #8b6914;
+        }
+
+        /* Print styles */
+        @media print {
+            @page {
+                margin: 2cm 1.5cm;
+                size: A4;
+            }
+            body {
+                padding: 0;
+                font-size: 11pt;
+                background: white;
+                max-width: 100%;
+            }
+            .badge, .learning-card, blockquote, .principle-card, .mindset-card, .match-row, .quick-ref, .action-card, .telegram-cta, .scene-card, .do-item, .dont-item {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+                page-break-inside: avoid;
+            }
+            h1 { font-size: 22pt; }
+            h2 {
+                font-size: 14pt;
+                page-break-after: avoid;
+            }
+            .divider {
+                page-break-after: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="badge-row">
+    <span class="badge badge-dark">Cross-Sell Training</span>
+    <span class="badge badge-outline">⏱️ 5-7 min</span>
+</div>
+
+<h1>The Add-On Mindset</h1>
+
+<div class="learning-card">
+    <div class="learning-card-label">What You'll Learn</div>
+    <div class="learning-card-text">Why cross-selling actually helps customers — and how to suggest the right add-ons without feeling pushy.</div>
+</div>
+
+<h2>⚠️ The Problem</h2>
+
+<div class="scene-card">
+    <div class="scene-title">What's Actually Happening</div>
+    <div class="scene-flow">
+        <div class="scene-step">
+            <span class="scene-icon">👟</span>
+            <span class="scene-text"><strong>Customer buys running shoes</strong></span>
+        </div>
+        <div class="scene-arrow">↓</div>
+        <div class="scene-step">
+            <span class="scene-icon">🤐</span>
+            <span class="scene-text">You don't mention socks, because "they didn't ask"</span>
+        </div>
+        <div class="scene-arrow">↓</div>
+        <div class="scene-step">
+            <span class="scene-icon">😣</span>
+            <span class="scene-text">They run in cotton socks. Get blisters. Blame the shoes.</span>
+        </div>
+        <div class="scene-result">
+            <span class="scene-result-icon">👎</span>
+            <span class="scene-result-text">Bad experience. No repeat customer. You "helped" by staying quiet.</span>
+        </div>
+    </div>
+</div>
+
+<p>Most staff think cross-selling is <strong>pushing products for commission.</strong> So they don't do it.</p>
+
+<p>But here's the truth: <strong>Silence isn't neutral — it's a disservice.</strong></p>
+
+<div class="divider"></div>
+
+<h2>🔄 The Mindset Shift</h2>
+
+<div class="mindset-grid">
+    <div class="mindset-card old">
+        <div class="mindset-label">❌ Old Thinking</div>
+        <div class="mindset-text">"I don't want to be pushy. If they need socks, they'll ask."</div>
+    </div>
+    <div class="mindset-card new">
+        <div class="mindset-label">✓ New Thinking</div>
+        <div class="mindset-text">"If I don't mention it, they might have a worse experience."</div>
+    </div>
+</div>
+
+<blockquote>
+    <p>The customer doesn't know what they don't know. If they're buying suede and you don't mention the protector, you're setting them up for disappointment.</p>
+    <div class="quote-source">— Store observation, PUMA Lekki</div>
+</blockquote>
+
+<div class="divider"></div>
+
+<h2>📐 Three Principles</h2>
+
+<div class="principle-card">
+    <div class="principle-header">
+        <span class="principle-icon">🎯</span>
+        <span class="principle-title">1. Match to Customer Type</span>
+    </div>
+    <div class="principle-text">
+        Different customers need different add-ons. An Activity buyer needs gear for their sport. A Material-Curious buyer is literally asking about care products.
+    </div>
+    <div class="principle-example">
+        <div class="principle-example-label">Example</div>
+        "I want to start running" → Running socks, not suede protector
+    </div>
+</div>
+
+<div class="principle-card">
+    <div class="principle-header">
+        <span class="principle-icon">✨</span>
+        <span class="principle-title">2. Match to Material</span>
+    </div>
+    <div class="principle-text">
+        Certain materials need certain care. Suede needs protector. White leather needs cleaner. This isn't selling — it's saving them from ruining their purchase.
+    </div>
+    <div class="principle-example">
+        <div class="principle-example-label">Example</div>
+        Suede Classic → "We have the protector spray for this"
+    </div>
+</div>
+
+<div class="principle-card">
+    <div class="principle-header">
+        <span class="principle-icon">🎁</span>
+        <span class="principle-title">3. Match to Occasion</span>
+    </div>
+    <div class="principle-text">
+        A gift buyer cares about presentation. A "just for everyday" buyer doesn't need a shoe bag. Read the situation.
+    </div>
+    <div class="principle-example">
+        <div class="principle-example-label">Example</div>
+        "It's for my son's birthday" → "Want me to add a shoe bag? Makes a nicer gift"
+    </div>
+</div>
+
+<div class="divider"></div>
+
+<h2>🔗 The Match Logic</h2>
+
+<p>The right add-on depends on the customer, not just the product:</p>
+
+<div class="match-grid">
+    <div class="match-row">
+        <span class="match-customer">"I want to start running"</span>
+        <span class="match-arrow">→</span>
+        <span class="match-addon">Running socks, belt</span>
+    </div>
+    <div class="match-row">
+        <span class="match-customer">"How do I clean this suede?"</span>
+        <span class="match-arrow">→</span>
+        <span class="match-addon">Suede protector</span>
+    </div>
+    <div class="match-row">
+        <span class="match-customer">"Give me things that fit"</span>
+        <span class="match-arrow">→</span>
+        <span class="match-addon">Complete outfit</span>
+    </div>
+    <div class="match-row">
+        <span class="match-customer">"For my son's birthday"</span>
+        <span class="match-arrow">→</span>
+        <span class="match-addon">Shoe bag, gift packaging</span>
+    </div>
+    <div class="match-row">
+        <span class="match-customer">"I know the Nitro, just need size 43"</span>
+        <span class="match-arrow">→</span>
+        <span class="match-addon">"Trying to get socks?" (casual)</span>
+    </div>
+</div>
+
+<div class="divider"></div>
+
+<h2>✅ How to Suggest</h2>
+
+<h3>What Works</h3>
+<div class="do-dont-grid">
+    <div class="do-item">
+        <span class="do-icon">✓</span>
+        <span class="do-text"><strong>Connect to their need:</strong> "Since you're running, these socks make a big difference for blisters"</span>
+    </div>
+    <div class="do-item">
+        <span class="do-icon">✓</span>
+        <span class="do-text"><strong>Answer their question:</strong> "For the suede? We have the protector spray — ₦3,500"</span>
+    </div>
+    <div class="do-item">
+        <span class="do-icon">✓</span>
+        <span class="do-text"><strong>Make it easy:</strong> "I can add socks to this — takes two seconds"</span>
+    </div>
+</div>
+
+<h3>What Doesn't Work</h3>
+<div class="do-dont-grid">
+    <div class="dont-item">
+        <span class="dont-icon">✗</span>
+        <span class="dont-text"><strong>Random script:</strong> "Would you like socks with that?" (disconnected from their need)</span>
+    </div>
+    <div class="dont-item">
+        <span class="dont-icon">✗</span>
+        <span class="dont-text"><strong>Pressure:</strong> "You really should get the protector" (pushy)</span>
+    </div>
+    <div class="dont-item">
+        <span class="dont-icon">✗</span>
+        <span class="dont-text"><strong>Wrong match:</strong> Running belt for someone buying casual shoes (irrelevant)</span>
+    </div>
+</div>
+
+<div class="divider"></div>
+
+<div class="quick-ref">
+    <div class="quick-ref-title">📋 Quick Reference</div>
+    <ul>
+        <li><strong>Activity buyer:</strong> Add-ons for their activity (running = running gear)</li>
+        <li><strong>Material-curious:</strong> They asked — give them the care product</li>
+        <li><strong>Guided buyer:</strong> Build the whole outfit, they'll say yes</li>
+        <li><strong>Gift buyer:</strong> Presentation extras (bag, care kit)</li>
+        <li><strong>Expert buyer:</strong> Quick, casual ask — don't patronize</li>
+    </ul>
+</div>
+
+<div class="action-card">
+    <div class="action-card-label">🎯 Build the Skill</div>
+    <div class="action-card-text">Practice selecting the right add-ons for different customers.<br>Play the game daily — it only takes 3-5 minutes.</div>
+    <a href="puma-basket-game-v2.html" class="action-card-link">Play: Build the Basket →</a>
+</div>
+
+<div class="telegram-cta">
+    <div class="telegram-cta-text"><strong>📱 Share in the Group</strong></div>
+    <div class="telegram-cta-action">What's your best add-on success story this week?</div>
+</div>
+
+<div class="page-footer">
+    <div class="brand"><span class="brand-name">FORJE</span> Retail Training</div>
+    <div class="next">➡️ Next: Sales Scripts by Type</div>
+</div>
+
+</body>
+</html>
