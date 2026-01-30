@@ -336,14 +336,19 @@
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
+        .demo-label-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            margin-top: auto;
+        }
         .demo-label {
             font-size: 11px;
             font-weight: 700;
             letter-spacing: 1px;
             color: #888;
             text-transform: uppercase;
-            margin-bottom: 12px;
-            margin-top: auto;
         }
         .demo-grid {
             display: grid;
@@ -379,11 +384,8 @@
             color: #888;
         }
         .demo-hint {
-            text-align: center;
             font-size: 12px;
             color: #999;
-            margin-top: auto;
-            padding-top: 20px;
         }
         .scroll-hint {
             text-align: center;
@@ -411,7 +413,10 @@
         <div class="demo-brand"><span>FORJE</span> RETAIL TRAINING</div>
         <div class="demo-badge">Demo</div>
     </div>
-    <div class="demo-label">Try the games</div>
+    <div class="demo-label-row">
+        <div class="demo-label">Try the games</div>
+        <div class="demo-hint">tap any tile to try</div>
+    </div>
     <div class="demo-grid">
         <a href="puma-customer-game.html" class="demo-tile">
             <div class="demo-icon">🎯</div>
@@ -434,7 +439,6 @@
             <div class="demo-time">5 min read</div>
         </a>
     </div>
-    <div class="demo-hint">tap any tile to try</div>
     <div class="scroll-hint"><span>↓</span>full course below</div>
 </div>
 
