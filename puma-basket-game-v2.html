@@ -269,6 +269,23 @@
 
         .addon-info { flex: 1; min-width: 0; }
 
+        /* Product thumbnail placeholder */
+        .addon-thumbnail {
+            width: 60px;
+            height: 60px;
+            background: #f8f8f8;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 9px;
+            color: #aaa;
+            text-align: center;
+            padding: 4px;
+        }
+
         .addon-name {
             font-size: 0.95rem;
             font-weight: 500;
@@ -543,7 +560,7 @@
     <div class="game-container">
         <!-- Start Screen -->
         <div class="start-screen" id="startScreen">
-            <a href="index.html" class="back-btn">← Back to Demo</a>
+            <a href="course-outline.html" class="back-btn">← Back</a>
             <div class="start-title">Build the Basket</div>
             <div class="start-subtitle">
                 A customer arrives. They're buying something.<br>
@@ -658,7 +675,7 @@
             </div>
 
             <button class="btn" onclick="playAgain()">Play Again</button>
-            <a href="index.html" class="btn btn-secondary">← Back to Demo</a>
+            <a href="course-outline.html" class="btn btn-secondary">← Back</a>
         </div>
     </div>
 
@@ -958,6 +975,7 @@
             const addonsList = document.getElementById('addonsList');
             addonsList.innerHTML = scenario.addons.map((addon, i) => `
                 <div class="addon-item" data-index="${i}" onclick="toggleAddon(this)">
+                    <div class="addon-thumbnail">IMG</div>
                     <div class="addon-info">
                         <div class="addon-name">${toTitleCase(addon.name)}</div>
                         <div class="addon-reason">${addon.reason}</div>

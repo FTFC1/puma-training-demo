@@ -70,9 +70,9 @@ export const CTA: React.FC = () => {
           opacity: phoneOpacity,
         }}
       >
-        <PhoneFrame scale={1.2}>
+        <PhoneFrame scale={1.4}>
           <Img
-            src={staticFile('screenshots/01-landing.png')}
+            src={staticFile('screenshots/06-basket-question.png')}
             style={{width: '100%', height: '100%', objectFit: 'cover'}}
           />
         </PhoneFrame>

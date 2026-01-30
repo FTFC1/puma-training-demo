@@ -1,0 +1,21 @@
+{
+  "name": "forje-training-vsl",
+  "version": "1.0.0",
+  "description": "VSL demo video for FORJE Retail Training",
+  "scripts": {
+    "dev": "remotion studio",
+    "build": "remotion render src/index.ts ForjeVSL out/forje-vsl.mp4",
+    "render": "remotion render src/index.ts ForjeVSL out/forje-vsl.mp4"
+  },
+  "dependencies": {
+    "@remotion/cli": "^4.0.0",
+    "@remotion/player": "^4.0.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "remotion": "^4.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.0",
+    "typescript": "^5.0.0"
+  }
+}

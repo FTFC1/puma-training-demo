@@ -1,60 +1,166 @@
-import {AbsoluteFill, Sequence} from 'remotion';
-import {Hook} from './scenes/Hook';
-import {Problem} from './scenes/Problem';
-import {Solution} from './scenes/Solution';
-import {CustomerSaysDemo} from './scenes/CustomerSaysDemo';
-import {BasketDemo} from './scenes/BasketDemo';
-import {Credibility} from './scenes/Credibility';
-import {CTA} from './scenes/CTA';
-
-// Timing optimized for animated demos (in frames at 30fps)
-const SCENE_TIMING = {
-  hook: {start: 0, duration: 60},              // 0-2s
-  problem: {start: 60, duration: 75},          // 2-4.5s
-  solution: {start: 135, duration: 60},        // 4.5-6.5s
-  customerSays: {start: 195, duration: 100},   // 6.5-9.8s - Animated Customer Says
-  basket: {start: 295, duration: 110},         // 9.8-13.5s - Animated Build Basket
-  credibility: {start: 405, duration: 75},     // 13.5-16s
-  cta: {start: 480, duration: 120},            // 16-20s
-};
+import {AbsoluteFill, useCurrentFrame, interpolate, spring, useVideoConfig, Img, staticFile} from 'remotion';
+import {PhoneFrame} from './components/PhoneFrame';
 
 export const ForjeVSL: React.FC = () => {
+  const frame = useCurrentFrame();
+  const {fps} = useVideoConfig();
+
+  // "Try it now" fades in
+  const textOpacity = interpolate(frame, [0, 20], [0, 1], {extrapolateRight: 'clamp'});
+  const textY = interpolate(frame, [0, 20], [20, 0], {extrapolateRight: 'clamp'});
+
+  // Phone springs in
+  const phoneSpring = spring({
+    frame: frame - 10,
+    fps,
+    config: {damping: 12, stiffness: 80},
+  });
+  const phoneY = interpolate(phoneSpring, [0, 1], [100, 0]);
+  const phoneOpacity = interpolate(frame, [10, 30], [0, 1], {extrapolateRight: 'clamp'});
+
+  // Screenshots: question -> building -> feedback (animated flow) - 10s video
+  const showBuilding = frame >= 90;
+  const showFeedback = frame >= 180;
+
+  const buildingOpacity = interpolate(frame, [90, 105], [0, 1], {extrapolateRight: 'clamp'});
+  const feedbackOpacity = interpolate(frame, [180, 195], [0, 1], {extrapolateRight: 'clamp'});
+
+  // Tap indicators
+  const tap1Opacity = interpolate(frame, [60, 75, 90, 100], [0, 1, 1, 0], {extrapolateRight: 'clamp'});
+  const tap2Opacity = interpolate(frame, [150, 165, 180, 190], [0, 1, 1, 0], {extrapolateRight: 'clamp'});
+
+  // URL appears at end
+  const urlOpacity = interpolate(frame, [240, 260], [0, 1], {extrapolateRight: 'clamp'});
+
   return (
-    <AbsoluteFill style={{backgroundColor: '#1a1a1a'}}>
-      {/* Scene 1: Hook */}
-      <Sequence from={SCENE_TIMING.hook.start} durationInFrames={SCENE_TIMING.hook.duration}>
-        <Hook />
-      </Sequence>
+    <AbsoluteFill style={{backgroundColor: '#1a1a1a', justifyContent: 'flex-start', alignItems: 'center', paddingTop: 80}}>
+      {/* "Try it now" text */}
+      <div
+        style={{
+          textAlign: 'center',
+          opacity: textOpacity,
+          transform: `translateY(${textY}px)`,
+        }}
+      >
+        <div style={{fontSize: 64, fontWeight: 800, color: '#fff', fontFamily: 'system-ui'}}>
+          Try it now.
+        </div>
+        <div style={{fontSize: 36, fontWeight: 600, color: '#8b6914', marginTop: 10}}>
+          2 minutes. No signup.
+        </div>
+      </div>
 
-      {/* Scene 2: Problem */}
-      <Sequence from={SCENE_TIMING.problem.start} durationInFrames={SCENE_TIMING.problem.duration}>
-        <Problem />
-      </Sequence>
+      {/* Animated phone with game flow */}
+      <div
+        style={{
+          marginTop: 40,
+          opacity: phoneOpacity,
+          transform: `translateY(${phoneY}px) scale(${0.8 + phoneSpring * 0.2})`,
+        }}
+      >
+        <PhoneFrame scale={1.4}>
+          <div style={{width: '100%', height: '100%', position: 'relative'}}>
+            {/* Base: Question screenshot */}
+            <Img
+              src={staticFile('screenshots/06-basket-question.png')}
+              style={{width: '100%', height: '100%', objectFit: 'cover'}}
+            />
 
-      {/* Scene 3: Solution Intro */}
-      <Sequence from={SCENE_TIMING.solution.start} durationInFrames={SCENE_TIMING.solution.duration}>
-        <Solution />
-      </Sequence>
+            {/* Building screenshot */}
+            <Img
+              src={staticFile('screenshots/07-basket-building.png')}
+              style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                width: '100%',
+                height: '100%',
+                objectFit: 'cover',
+                opacity: showFeedback ? 0 : buildingOpacity,
+              }}
+            />
 
-      {/* Scene 4: Customer Says - Animated */}
-      <Sequence from={SCENE_TIMING.customerSays.start} durationInFrames={SCENE_TIMING.customerSays.duration}>
-        <CustomerSaysDemo />
-      </Sequence>
+            {/* Feedback screenshot */}
+            <Img
+              src={staticFile('screenshots/08-basket-feedback.png')}
+              style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                width: '100%',
+                height: '100%',
+                objectFit: 'cover',
+                opacity: feedbackOpacity,
+              }}
+            />
 
-      {/* Scene 5: Build the Basket - Animated */}
-      <Sequence from={SCENE_TIMING.basket.start} durationInFrames={SCENE_TIMING.basket.duration}>
-        <BasketDemo />
-      </Sequence>
+            {/* Tap indicator 1 */}
+            <div style={{
+              position: 'absolute',
+              top: '55%',
+              left: '15%',
+              opacity: tap1Opacity,
+            }}>
+              <div style={{
+                width: 40,
+                height: 40,
+                borderRadius: 20,
+                background: 'rgba(255,255,255,0.9)',
+                boxShadow: '0 0 20px rgba(255,255,255,0.5)',
+              }} />
+            </div>
 
-      {/* Scene 6: Credibility */}
-      <Sequence from={SCENE_TIMING.credibility.start} durationInFrames={SCENE_TIMING.credibility.duration}>
-        <Credibility />
-      </Sequence>
+            {/* Tap indicator 2 */}
+            <div style={{
+              position: 'absolute',
+              top: '65%',
+              left: '15%',
+              opacity: tap2Opacity,
+            }}>
+              <div style={{
+                width: 40,
+                height: 40,
+                borderRadius: 20,
+                background: 'rgba(255,255,255,0.9)',
+                boxShadow: '0 0 20px rgba(255,255,255,0.5)',
+              }} />
+            </div>
+          </div>
+        </PhoneFrame>
+      </div>
 
-      {/* Scene 7: CTA */}
-      <Sequence from={SCENE_TIMING.cta.start} durationInFrames={SCENE_TIMING.cta.duration}>
-        <CTA />
-      </Sequence>
+      {/* URL at bottom */}
+      <div
+        style={{
+          position: 'absolute',
+          bottom: 120,
+          textAlign: 'center',
+          opacity: urlOpacity,
+        }}
+      >
+        <div style={{fontSize: 24, color: '#888', marginBottom: 10}}>
+          Open in browser:
+        </div>
+        <div
+          style={{
+            fontSize: 32,
+            fontWeight: 700,
+            color: '#8b6914',
+            padding: '12px 24px',
+            backgroundColor: 'rgba(139, 105, 20, 0.15)',
+            borderRadius: 8,
+          }}
+        >
+          ftfc1.github.io/puma-training-demo
+        </div>
+      </div>
+
+      {/* FORJE branding */}
+      <div style={{position: 'absolute', bottom: 50}}>
+        <div style={{fontSize: 18, fontWeight: 700, letterSpacing: 2, color: '#666'}}>
+          <span style={{color: '#8b6914'}}>FORJE</span> RETAIL TRAINING
+        </div>
+      </div>
     </AbsoluteFill>
   );
 };
