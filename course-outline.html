@@ -385,6 +385,22 @@
             margin-top: auto;
             padding-top: 20px;
         }
+        .scroll-hint {
+            text-align: center;
+            padding: 16px 0 8px;
+            color: #bbb;
+            font-size: 11px;
+            animation: bounce 2s infinite;
+        }
+        .scroll-hint span {
+            display: block;
+            font-size: 18px;
+            margin-bottom: 4px;
+        }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(4px); }
+        }
     </style>
 </head>
 <body>
@@ -419,6 +435,7 @@
         </a>
     </div>
     <div class="demo-hint">tap any tile to try</div>
+    <div class="scroll-hint"><span>↓</span>full course below</div>
 </div>
 
 <!-- Course Content - Below the fold -->
