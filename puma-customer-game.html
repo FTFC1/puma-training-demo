@@ -698,37 +698,41 @@
 
         const scenarios = [
             // GUIDED (6 scenarios)
-            { quote: "I just want clothes, give me things that fit", correct: "GUIDED", wrong: ["EXPERT", "ACTIVITY", "MATERIAL"] },
-            { quote: "What do you think fits my body size?", correct: "GUIDED", wrong: ["EXPERT", "CASUAL", "ACTIVITY"] },
-            { quote: "I don't know what I'm looking for", correct: "GUIDED", wrong: ["EXPERT", "ACTIVITY", "MATERIAL"] },
-            { quote: "Help me pick something nice", correct: "GUIDED", wrong: ["EXPERT", "GIFT", "CASUAL"] },
+            { quote: "I just want clothes, give me things that fit well", correct: "GUIDED", wrong: ["EXPERT", "ACTIVITY", "MATERIAL"] },
+            { quote: "What do you think will fit my body?", correct: "GUIDED", wrong: ["EXPERT", "CASUAL", "ACTIVITY"] },
+            { quote: "I don't really know what I'm looking for", correct: "GUIDED", wrong: ["EXPERT", "ACTIVITY", "MATERIAL"] },
+            { quote: "Help me pick something nice abeg", correct: "GUIDED", wrong: ["EXPERT", "GIFT", "CASUAL"] },
             { quote: "I'm not sure what style suits me", correct: "GUIDED", wrong: ["ACTIVITY", "MATERIAL", "EXPERT"] },
-            { quote: "Can you recommend something?", correct: "GUIDED", wrong: ["EXPERT", "CASUAL", "GIFT"] },
+            { quote: "Can you recommend something for me?", correct: "GUIDED", wrong: ["EXPERT", "CASUAL", "GIFT"] },
 
-            // EXPERT (6 scenarios)
-            { quote: "I buy the Nitro, I know the new one just came out", correct: "EXPERT", wrong: ["GUIDED", "ACTIVITY", "CASUAL"] },
-            { quote: "I've been buying PUMA for years, show me the new stuff", correct: "EXPERT", wrong: ["GUIDED", "GIFT", "MATERIAL"] },
+            // EXPERT (7 scenarios)
+            { quote: "I saw the new Nitro online, do you have it?", correct: "EXPERT", wrong: ["GUIDED", "ACTIVITY", "CASUAL"] },
+            { quote: "I've been buying PUMA for years, show me wetin dey new", correct: "EXPERT", wrong: ["GUIDED", "GIFT", "MATERIAL"] },
             { quote: "Is the Deviate better than the Velocity for tempo runs?", correct: "EXPERT", wrong: ["ACTIVITY", "GUIDED", "CASUAL"] },
             { quote: "I already have the RS-X, what's different about this one?", correct: "EXPERT", wrong: ["GUIDED", "CASUAL", "MATERIAL"] },
             { quote: "The Suede Classic colorway from last season was better", correct: "EXPERT", wrong: ["MATERIAL", "CASUAL", "GUIDED"] },
-            { quote: "I follow PUMA releases, just show me what dropped", correct: "EXPERT", wrong: ["GUIDED", "ACTIVITY", "GIFT"] },
+            { quote: "I follow PUMA releases, just show me wetin drop", correct: "EXPERT", wrong: ["GUIDED", "ACTIVITY", "GIFT"] },
+            { quote: "Do you have the Future Rider in my size? I checked last week", correct: "EXPERT", wrong: ["GUIDED", "CASUAL", "ACTIVITY"] },
 
-            // ACTIVITY (7 scenarios)
-            { quote: "I want to start running, which shoes are good?", correct: "ACTIVITY", wrong: ["GUIDED", "EXPERT", "CASUAL"] },
+            // ACTIVITY (9 scenarios)
+            { quote: "Which is good for gym?", correct: "ACTIVITY", wrong: ["GUIDED", "EXPERT", "CASUAL"] },
             { quote: "I go to the gym, weights and cardio", correct: "ACTIVITY", wrong: ["CASUAL", "GUIDED", "MATERIAL"] },
             { quote: "Training for Lagos Marathon next month", correct: "ACTIVITY", wrong: ["EXPERT", "CASUAL", "GIFT"] },
             { quote: "I need something for football on weekends", correct: "ACTIVITY", wrong: ["CASUAL", "GUIDED", "EXPERT"] },
             { quote: "Looking for shoes to play basketball", correct: "ACTIVITY", wrong: ["CASUAL", "GIFT", "GUIDED"] },
             { quote: "I do HIIT classes three times a week", correct: "ACTIVITY", wrong: ["EXPERT", "CASUAL", "MATERIAL"] },
             { quote: "Need gear for my morning jogs", correct: "ACTIVITY", wrong: ["CASUAL", "GUIDED", "GIFT"] },
+            { quote: "I'm doing treadmill running, what shoes work best?", correct: "ACTIVITY", wrong: ["CASUAL", "EXPERT", "GUIDED"] },
+            { quote: "I'm lifting weights at the gym, need proper shoes", correct: "ACTIVITY", wrong: ["CASUAL", "EXPERT", "MATERIAL"] },
 
-            // MATERIAL (6 scenarios)
+            // MATERIAL (7 scenarios)
             { quote: "I like this suede, how would I clean it?", correct: "MATERIAL", wrong: ["ACTIVITY", "CASUAL", "GUIDED"] },
             { quote: "White shoes get dirty so fast", correct: "MATERIAL", wrong: ["CASUAL", "ACTIVITY", "GIFT"] },
-            { quote: "These look delicate, how do I maintain them?", correct: "MATERIAL", wrong: ["GUIDED", "GIFT", "CASUAL"] },
-            { quote: "Will this leather last if I wear it daily?", correct: "MATERIAL", wrong: ["CASUAL", "ACTIVITY", "EXPERT"] },
+            { quote: "These ones look delicate, how do I maintain them?", correct: "MATERIAL", wrong: ["GUIDED", "GIFT", "CASUAL"] },
+            { quote: "Will this leather last if I wear am everyday?", correct: "MATERIAL", wrong: ["CASUAL", "ACTIVITY", "EXPERT"] },
             { quote: "How do I keep this mesh clean?", correct: "MATERIAL", wrong: ["ACTIVITY", "GUIDED", "GIFT"] },
             { quote: "Is this material easy to wash?", correct: "MATERIAL", wrong: ["CASUAL", "GUIDED", "ACTIVITY"] },
+            { quote: "This black shirt looks faded, is it supposed to be like this?", correct: "MATERIAL", wrong: ["CASUAL", "ACTIVITY", "GUIDED"] },
 
             // GIFT (5 scenarios)
             { quote: "It's for my son's birthday", correct: "GIFT", wrong: ["GUIDED", "CASUAL", "MATERIAL"] },
@@ -738,11 +742,11 @@
             { quote: "Need something nice to give my boss", correct: "GIFT", wrong: ["EXPERT", "GUIDED", "MATERIAL"] },
 
             // CASUAL (5 scenarios)
-            { quote: "Just something comfortable for weekends", correct: "CASUAL", wrong: ["ACTIVITY", "EXPERT", "MATERIAL"] },
-            { quote: "Just a casual t-shirt to wear about", correct: "CASUAL", wrong: ["ACTIVITY", "EXPERT", "GUIDED"] },
-            { quote: "Something to wear to the mall", correct: "CASUAL", wrong: ["ACTIVITY", "EXPERT", "GIFT"] },
-            { quote: "I just want everyday wear, nothing serious", correct: "CASUAL", wrong: ["ACTIVITY", "MATERIAL", "EXPERT"] },
-            { quote: "Looking for something relaxed, not for sports", correct: "CASUAL", wrong: ["ACTIVITY", "EXPERT", "GUIDED"] }
+            { quote: "Just something comfortable for weekend", correct: "CASUAL", wrong: ["ACTIVITY", "EXPERT", "MATERIAL"] },
+            { quote: "Just a casual t-shirt to wear around", correct: "CASUAL", wrong: ["ACTIVITY", "EXPERT", "GUIDED"] },
+            { quote: "Something to wear when I go mall", correct: "CASUAL", wrong: ["ACTIVITY", "EXPERT", "GIFT"] },
+            { quote: "I just want everyday wear, nothing too serious", correct: "CASUAL", wrong: ["ACTIVITY", "MATERIAL", "EXPERT"] },
+            { quote: "Looking for something relaxed, not for sports o", correct: "CASUAL", wrong: ["ACTIVITY", "EXPERT", "GUIDED"] }
         ];
 
         let currentQuestion = 0;
