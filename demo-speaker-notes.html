@@ -6,64 +6,64 @@
 <title>PRL Demo — FT Speaker Notes</title>
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: -apple-system, 'Helvetica Neue', 'Segoe UI', sans-serif; background: #0a0a0a; color: #e0e0e0; padding: 16px; max-width: 600px; margin: 0 auto; line-height: 1.6; font-size: 15px; -webkit-text-size-adjust: 100%; }
-h1 { font-size: 20px; color: #fff; margin-bottom: 4px; font-weight: 700; }
-.meta { font-size: 13px; color: #888; margin-bottom: 16px; }
-.phase { border: 1px solid #333; border-radius: 8px; margin-bottom: 12px; overflow: hidden; }
+body { font-family: -apple-system, 'Helvetica Neue', 'Segoe UI', sans-serif; background: #FAFAF8; color: #333; padding: 16px; max-width: 600px; margin: 0 auto; line-height: 1.6; font-size: 15px; -webkit-text-size-adjust: 100%; }
+h1 { font-size: 20px; color: #1a1a1a; margin-bottom: 4px; font-weight: 700; }
+.meta { font-size: 13px; color: #777; margin-bottom: 16px; }
+.phase { border: 1px solid #e0d8d0; border-radius: 8px; margin-bottom: 12px; overflow: hidden; background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,0.04); }
 .phase-header { padding: 12px 14px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
-.phase-header h2 { font-size: 15px; margin: 0; font-weight: 600; }
+.phase-header h2 { font-size: 15px; margin: 0; font-weight: 600; color: #1a1a1a; }
 .phase-header .time { font-size: 13px; color: #888; white-space: nowrap; margin-left: 8px; }
 .phase-body { padding: 0 14px 14px; display: none; }
 .phase.open .phase-body { display: block; }
 .phase.open .arrow { transform: rotate(90deg); }
-.arrow { color: #666; transition: transform 0.2s; font-size: 14px; }
-.p-timi .phase-header { background: #1a1a2e; border-bottom: 1px solid #333; }
-.p-nico .phase-header { background: #1e2a1e; border-bottom: 1px solid #333; }
-.p-staff .phase-header { background: #2a1e1e; border-bottom: 1px solid #333; }
-.p-close .phase-header { background: #2a2a1e; border-bottom: 1px solid #333; }
-.p-read .phase-header { background: #2a1a2a; border-bottom: 1px solid #333; }
-.p-setup .phase-header { background: #1a2020; border-bottom: 1px solid #333; }
-.say { background: #111; border-left: 3px solid #4a9; padding: 10px 12px; margin: 8px 0; border-radius: 0 4px 4px 0; font-size: 15px; }
-.say::before { content: '💬 SAY: '; font-weight: bold; color: #4a9; }
-.do { background: #111; border-left: 3px solid #a94; padding: 10px 12px; margin: 8px 0; border-radius: 0 4px 4px 0; font-size: 15px; }
-.do::before { content: '👆 DO: '; font-weight: bold; color: #a94; }
-.note { background: #111; border-left: 3px solid #94a; padding: 10px 12px; margin: 8px 0; border-radius: 0 4px 4px 0; font-size: 15px; }
-.note::before { content: '📌 NOTE: '; font-weight: bold; color: #94a; }
-.warn { background: #1a1111; border-left: 3px solid #a44; padding: 10px 12px; margin: 8px 0; border-radius: 0 4px 4px 0; font-size: 15px; }
+.arrow { color: #aaa; transition: transform 0.2s; font-size: 14px; }
+.p-timi .phase-header { background: #f0ebe5; border-bottom: 1px solid #e0d8d0; }
+.p-nico .phase-header { background: #eaf3ea; border-bottom: 1px solid #e0d8d0; }
+.p-staff .phase-header { background: #f5ede8; border-bottom: 1px solid #e0d8d0; }
+.p-close .phase-header { background: #f5f3e8; border-bottom: 1px solid #e0d8d0; }
+.p-read .phase-header { background: #f0e8f0; border-bottom: 1px solid #e0d8d0; }
+.p-setup .phase-header { background: #e8f0f0; border-bottom: 1px solid #e0d8d0; }
+.say { background: #f5faf7; border-left: 3px solid #2d7a5a; padding: 10px 12px; margin: 8px 0; border-radius: 0 4px 4px 0; font-size: 15px; }
+.say::before { content: '💬 SAY: '; font-weight: bold; color: #2d7a5a; }
+.do { background: #fffaf0; border-left: 3px solid #b45309; padding: 10px 12px; margin: 8px 0; border-radius: 0 4px 4px 0; font-size: 15px; }
+.do::before { content: '👆 DO: '; font-weight: bold; color: #b45309; }
+.note { background: #f5f5fa; border-left: 3px solid #6366f1; padding: 10px 12px; margin: 8px 0; border-radius: 0 4px 4px 0; font-size: 15px; }
+.note::before { content: '📌 NOTE: '; font-weight: bold; color: #6366f1; }
+.warn { background: #fef2f2; border-left: 3px solid #dc2626; padding: 10px 12px; margin: 8px 0; border-radius: 0 4px 4px 0; font-size: 15px; }
 .warn::before { content: '⚠️ '; font-weight: bold; }
-.branch { background: #1a1520; border-left: 3px solid #a4a; padding: 10px 12px; margin: 8px 0; border-radius: 0 4px 4px 0; font-size: 15px; }
-.branch::before { content: '🔀 IF: '; font-weight: bold; color: #a4a; }
-.cut { opacity: 0.6; border: 1px dashed #444; border-radius: 4px; padding: 8px 10px; margin: 8px 0; font-size: 13px; }
-.cut::before { content: '✂ CAN CUT — '; font-weight: bold; color: #666; }
+.branch { background: #faf5ff; border-left: 3px solid #9333ea; padding: 10px 12px; margin: 8px 0; border-radius: 0 4px 4px 0; font-size: 15px; }
+.branch::before { content: '🔀 IF: '; font-weight: bold; color: #9333ea; }
+.cut { opacity: 0.5; border: 1px dashed #bbb; border-radius: 4px; padding: 8px 10px; margin: 8px 0; font-size: 13px; }
+.cut::before { content: '✂ CAN CUT — '; font-weight: bold; color: #999; }
 ul { padding-left: 20px; margin: 6px 0; font-size: 15px; }
 li { margin: 4px 0; }
-.stat { color: #f90; font-weight: bold; }
-.room { background: #151520; border: 1px solid #333; border-radius: 6px; padding: 12px 14px; margin-bottom: 12px; }
+.stat { color: #b45309; font-weight: bold; }
+.room { background: #fff; border: 1px solid #e0d8d0; border-radius: 6px; padding: 12px 14px; margin-bottom: 12px; }
 .room h3 { font-size: 14px; color: #888; margin-bottom: 6px; }
-.links { background: #151515; border: 1px solid #333; border-radius: 6px; padding: 12px 14px; margin-bottom: 12px; }
-.links a { color: #4a9; text-decoration: none; display: block; padding: 6px 0; font-size: 15px; }
-.expand-all { background: #222; color: #888; border: 1px solid #444; padding: 8px 14px; border-radius: 4px; font-size: 13px; cursor: pointer; float: right; font-family: inherit; }
+.links { background: #fff; border: 1px solid #e0d8d0; border-radius: 6px; padding: 12px 14px; margin-bottom: 12px; }
+.links a { color: #2d7a5a; text-decoration: none; display: block; padding: 6px 0; font-size: 15px; }
+.expand-all { background: #fff; color: #777; border: 1px solid #ddd; padding: 8px 14px; border-radius: 4px; font-size: 13px; cursor: pointer; float: right; font-family: inherit; }
 .timer { font-size: 13px; color: #888; text-align: center; margin-bottom: 12px; }
-.rule { background: #1a2520; border: 2px solid #4a9; border-radius: 8px; padding: 14px; margin-bottom: 12px; }
-.rule h3 { color: #4a9; font-size: 16px; margin-bottom: 6px; }
-.fallback { border: 1px solid #a44; border-radius: 8px; padding: 14px; margin-top: 12px; }
-.fallback h3 { color: #a44; font-size: 16px; margin-bottom: 8px; }
-hr { border: none; border-top: 1px solid #222; margin: 12px 0; }
+.rule { background: #f0faf5; border: 2px solid #2d7a5a; border-radius: 8px; padding: 14px; margin-bottom: 12px; }
+.rule h3 { color: #2d7a5a; font-size: 16px; margin-bottom: 6px; }
+.fallback { background: #fef7f7; border: 1px solid #dc2626; border-radius: 8px; padding: 14px; margin-top: 12px; }
+.fallback h3 { color: #dc2626; font-size: 16px; margin-bottom: 8px; }
+hr { border: none; border-top: 1px solid #e0d8d0; margin: 12px 0; }
 .setup-grid { display: grid; grid-template-columns: auto 1fr; gap: 4px 12px; font-size: 15px; }
-.setup-grid dt { color: #888; font-weight: 600; }
-.setup-grid dd { color: #e0e0e0; }
-.btn { display: block; background: #1a2a2a; border: 1px solid #3a5a5a; color: #5cb; text-decoration: none; padding: 12px 16px; border-radius: 8px; margin: 6px 0; font-size: 15px; font-weight: 500; text-align: center; -webkit-tap-highlight-color: rgba(0,0,0,0); }
-.btn:active { background: #2a3a3a; transform: scale(0.98); }
-.btn .btn-num { color: #888; font-size: 13px; }
+.setup-grid dt { color: #777; font-weight: 600; }
+.setup-grid dd { color: #333; }
+.btn { display: block; background: #fff; border: 1px solid #d4cdc0; color: #2d7a5a; text-decoration: none; padding: 12px 16px; border-radius: 8px; margin: 6px 0; font-size: 15px; font-weight: 500; text-align: center; -webkit-tap-highlight-color: rgba(0,0,0,0); box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
+.btn:active { background: #f5f5f2; transform: scale(0.98); }
+.btn .btn-num { color: #999; font-size: 13px; }
 .btn-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 8px 0; }
 .btn-row .btn { font-size: 14px; padding: 10px 12px; }
-.flow-banner { display: flex; align-items: center; justify-content: center; gap: 0; background: linear-gradient(135deg, #1a1510, #151520); border: 2px solid #3a3020; border-radius: 12px; padding: 16px 8px; margin-bottom: 16px; }
+.flow-banner { display: flex; align-items: center; justify-content: center; gap: 0; background: #fff; border: 2px solid #e0d8d0; border-radius: 12px; padding: 16px 8px; margin-bottom: 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.04); }
 .flow-step { display: flex; flex-direction: column; align-items: center; text-align: center; flex: 1; min-width: 0; }
-.flow-num { font-size: 24px; font-weight: 800; color: #d4a04a; line-height: 1; }
+.flow-num { font-size: 24px; font-weight: 800; color: #b45309; line-height: 1; }
 .flow-icon { font-size: 18px; margin: 4px 0 2px; }
-.flow-label { font-size: 11px; color: #ccc; font-weight: 600; }
-.flow-time { font-size: 10px; color: #666; }
-.flow-arrow { color: #555; font-size: 14px; padding: 0 2px; flex-shrink: 0; }
+.flow-label { font-size: 11px; color: #555; font-weight: 600; }
+.flow-time { font-size: 10px; color: #999; }
+.flow-arrow { color: #ccc; font-size: 14px; padding: 0 2px; flex-shrink: 0; }
 </style>
 </head>
 <body>
@@ -72,7 +72,7 @@ hr { border: none; border-top: 1px solid #222; margin: 12px 0; }
 <h1>PRL DEMO — SPEAKER NOTES</h1>
 <p class="meta">Thu Feb 12 · 1 hour · Zoom · FT = demo (screen share) · Timi = commercial (in room)</p>
 
-<img src="meeting-flow.png" alt="Meeting Flow: Timi Opens → FT Demos → Staff Play → Discussion → Close" style="width:100%;border-radius:12px;margin-bottom:8px;border:2px solid #3a3020;">
+<img src="meeting-flow.png" alt="Meeting Flow: Timi Opens → FT Demos → Staff Play → Discussion → Close" style="width:100%;border-radius:12px;margin-bottom:8px;border:2px solid #e0d8d0;">
 <div class="flow-banner">
 <div class="flow-step"><span class="flow-num">01</span><span class="flow-icon">🎤</span><span class="flow-label">Timi Opens</span><span class="flow-time">10 min</span></div>
 <span class="flow-arrow">→</span>
@@ -109,7 +109,7 @@ hr { border: none; border-top: 1px solid #222; margin: 12px 0; }
 <a class="btn" href="https://ftfc1.github.io/puma-training-demo/course-outline.html"><span class="btn-num">TAB 2</span><br>Course Outline</a>
 </div>
 <div class="btn-row">
-<a class="btn" href="https://t.me/prlpuma_bot" style="background:#1a2030;border-color:#2a4060;color:#6af;"><span class="btn-num">TAB 3 · opens TG app</span><br>@prlpuma_bot</a>
+<a class="btn" href="https://t.me/prlpuma_bot" style="background:#f0f5ff;border-color:#c0d0e8;color:#2563eb;"><span class="btn-num">TAB 3 · opens TG app</span><br>@prlpuma_bot</a>
 <a class="btn" href="https://ftfc1.github.io/puma-training-demo/demo-weekly-report.html"><span class="btn-num">TAB 4</span><br>Weekly Report</a>
 </div>
 
@@ -391,7 +391,7 @@ Flex: If time is tight, compress demo + staff play. If time is long, let discuss
 </div>
 
 <hr>
-<p style="font-size: 10px; color: #444; text-align: center; margin-top: 12px;">Updated Feb 12. Bot: @prlpuma_bot · Group: PUMA LEKKI TRAINING · Open on phone during demo.</p>
+<p style="font-size: 10px; color: #999; text-align: center; margin-top: 12px;">Updated Feb 12. Bot: @prlpuma_bot · Group: PUMA LEKKI TRAINING · Open on phone during demo.</p>
 
 <script>
 function toggle(el) {
